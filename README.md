@@ -51,7 +51,8 @@ input("wait = ")
 url = next(mail_OBJ)
 print(url)
 
-```    
+```
+
 ### Usage with json Files
 ```py
 from Nara.Extra import LoadJson,JsonList,JsonDict,LoadTestResults
@@ -84,6 +85,7 @@ print(a)
 > OUTPUT : {'username': 'johndoe'}
 
 ```
+
 ### Usage For fast Processing
 
 ```py
@@ -186,10 +188,10 @@ def main():
 
 
 ## Authors
-> - Subhash Kumar
-> - Divyansh Shukla
-> - Yateesh Reddy
-    
+- Subhash Kumar
+- Divyansh Shukla
+- Yateesh Reddy
+
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
