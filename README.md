@@ -24,7 +24,7 @@ Whether you are developing applications, automating tasks, or integrating AI-bas
 You can install the package using pip:
 
 ```bash
-pip install nara
+pip install Nara
 ```
 
 ## Usage
@@ -32,7 +32,7 @@ pip install nara
 
 ### Usage with temporary Mail
 ```py
-from nara.Extra import OnlyMail,MailUrl,MailOtp
+from Nara.Extra import OnlyMail,MailUrl,MailOtp
 
 # Example usage for generating a temporary email
 OnlyMail(Printable=True) #only for generate email
@@ -54,7 +54,7 @@ print(url)
 ```    
 ### Usage with json Files
 ```py
-from nara.Extra import LoadJson,JsonList,JsonDict,LoadTestResults
+from Nara.Extra import LoadJson,JsonList,JsonDict,LoadTestResults
 
  #Example usage for create a json file if not exist and save your jason as list formate
 JsonList(FileName="data.json", name="Alice", age=30)
@@ -181,7 +181,7 @@ def selenium_code_for_flipkart() -> int:
 
 def main():
     print("Don't change this function")
-    
+
 ```
 
 
@@ -189,7 +189,7 @@ def main():
 > - Subhash Kumar
 > - Divyansh Shukla
 > - Yateesh Reddy
-
+    
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
