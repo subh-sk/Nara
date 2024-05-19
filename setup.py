@@ -61,7 +61,9 @@ setup(
     packages=[
         'Nara',
         'Nara.nara',
-        'Nara.Extra'
+        'Nara.Extra',
+        'Nara.Extra.TempMail',
+        'Nara.Extra.Json',
     ],
     keywords=['ai','templategenerator','template generator','code generation', 'temp mail', 'ai chat', 'nara', 'nara ai', 'json','fakename','fakeid'],
     project_urls={
