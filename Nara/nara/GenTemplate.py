@@ -1,0 +1,58 @@
+import re
+from groq import Groq
+import inspect
+
+System = [
+    {"role": "system", "content": "write code in ```python\n<code>\n``` format"},
+    {"role": "system", "content": "you are a Ai which create templates src in python whatever user instruct and if any imports of module is needed then write import <module>."},
+    {"role": "user", "content": "# Instruction Create Flask Template"},
+    {"role": "user", "content": "Sure, here's the Python template code for the flask template as per your instructions:\n\n```python\nfrom flask import Flask, render_template\napp = Flask(__name__)\n\n@app.route('/')\ndef index():\n    return 'Hello World'\n\nif __name__ == '__main__':\n    app.run(debug=True)\n```"},
+]
+
+client = Groq(api_key="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")
+
+def Filter(txt:str) -> str|None:
+    pattern = r"```python(.*?)```"
+    matches = re.findall(pattern, txt, re.DOTALL)
+
+    if matches:
+        python_code = matches[0].strip()
+        return python_code
+    else:
+        return None
+
+def GroqGen(Prompt:str):
+    completion = client.chat.completions.create(
+    model="llama3-70b-8192",
+    messages = System + [{ "role": "user", "content": Prompt }],
+    temperature=0.1,
+    max_tokens=4096,
+    top_p=1,
+    stream=True,
+    stop=None)
+    r=""
+    for chunk in completion:
+        if chunk.choices[0].delta.content:
+            r += chunk.choices[0].delta.content
+    return r
+
+
+def update_source_file(file_path, new_code):
+    with open(file_path, 'w') as file:
+        file.write(new_code)
+
+
+def CreateTemplate(prompt):
+    raw_code = GroqGen(f"# Instruction Create This Template\n\n{prompt}")
+    generated_code = Filter(raw_code)
+
+    if generated_code:
+        # Get the file path of the original function
+        caller_frame = inspect.stack()[1]
+        filepath = caller_frame.filename
+        # Replace the function definition with the generated code
+        update_source_file(filepath, generated_code)
+
+    else:
+        print("raw_code", raw_code)
+        raise Exception("No code generated due to improper instruction.")
