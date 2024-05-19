@@ -72,7 +72,7 @@ def update_source_file(file_path, old_code, new_code):
         file.write(file_data)
 
 
-def CreateFunc(func):
+def CreateFunc():
     """
     Generates a new function based on the provided function using the GROQ model.
 
@@ -103,8 +103,7 @@ def CreateFunc(func):
     ... def example_function(x, y):
     ...     return x + y
     """
-    @functools.wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(func):
         # Get the source code of the function
         source_lines, _ = inspect.getsourcelines(func)
         source_code = ''.join(source_lines).strip()
@@ -128,6 +127,6 @@ def CreateFunc(func):
             raise Exception("No code generated due to improper instruction. Try adding a docstring.")
 
         # Execute the original function
-        return func(*args, **kwargs)
+        return func()
 
     return wrapper
