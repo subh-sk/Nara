@@ -44,7 +44,7 @@ setup(
     classifiers=classifiers,
     install_requires=[
         'mailtm',
-        'rich'
+        'rich',
         'requests',
         'mimesis',
         'faker',
