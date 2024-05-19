@@ -2,6 +2,14 @@ import re
 from groq import Groq
 import functools
 import inspect
+import os
+from dotenv import load_dotenv
+from rich.console import Console
+
+current_dir = os.path.dirname(__file__)
+file_path = os.path.join(current_dir, '.env')
+
+load_dotenv(dotenv_path=file_path)
 
 System = [
     {"role": "system", "content": "write code in ```python\n<code>\n``` format"},
@@ -11,7 +19,22 @@ System = [
     {"role": "user", "content": "Sure, here's the Python function code for the add function as per your instructions:\n\n```python\ndef add(a: int = 0, b: int = 0) -> int:\n    return a + b\n```"},
 ]
 
-client = Groq(api_key="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")
+API = os.getenv("GROQ_API")
+
+if not API:
+    # Get the directory of the current script
+    current_dir = os.path.dirname(__file__)
+
+    # Get the full path of a file in the same directory
+    file_path = os.path.join(current_dir, '.env')
+    
+    console = Console()
+    API = console.input("[bold #e6a330]Let Begin with Groq [/bold #e6a330][green]API[/green][bold #0b7ce6] (https://console.groq.com/keys): [/bold #0b7ce6]")
+    with open(file_path, "w") as f:
+        f.write(f"GROQ_API = {API}")
+    console.print("\nYOU CAN CHANGE YOUR API USING init() from Nara")
+
+client = Groq(api_key=API)
 
 def Filter(txt:str) -> str|None:
     pattern = r"```python(.*?)```"
@@ -50,6 +73,36 @@ def update_source_file(file_path, old_code, new_code):
 
 
 def CreateFunc(func):
+    """
+    Generates a new function based on the provided function using the GROQ model.
+
+    Parameters
+    ----------
+    func : callable
+        The original function for which a new function will be generated.
+
+    Returns
+    -------
+    callable
+        The wrapper function that replaces the original function with the generated code.
+
+    Raises
+    ------
+    Exception
+        If no code is generated due to improper instruction.
+
+    Notes
+    -----
+    This function utilizes the GROQ model to generate Python code based on the provided 
+    function's source code. It extracts the function definition, updates the source file 
+    with the new code, and replaces the original function definition with the generated code.
+
+    Example
+    -------
+    >>> @CreateFunc
+    ... def example_function(x, y):
+    ...     return x + y
+    """
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         # Get the source code of the function

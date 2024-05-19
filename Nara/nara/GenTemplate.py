@@ -1,6 +1,14 @@
 import re
 from groq import Groq
 import inspect
+import os
+from dotenv import load_dotenv
+from rich.console import Console
+
+current_dir = os.path.dirname(__file__)
+file_path = os.path.join(current_dir, '.env')
+
+load_dotenv(dotenv_path=file_path)
 
 System = [
     {"role": "system", "content": "write code in ```python\n<code>\n``` format"},
@@ -9,7 +17,22 @@ System = [
     {"role": "user", "content": "Sure, here's the Python template code for the flask template as per your instructions:\n\n```python\nfrom flask import Flask, render_template\napp = Flask(__name__)\n\n@app.route('/')\ndef index():\n    return 'Hello World'\n\nif __name__ == '__main__':\n    app.run(debug=True)\n```"},
 ]
 
-client = Groq(api_key="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")
+API = os.getenv("GROQ_API")
+
+if not API:
+    # Get the directory of the current script
+    current_dir = os.path.dirname(__file__)
+
+    # Get the full path of a file in the same directory
+    file_path = os.path.join(current_dir, '.env')
+    
+    console = Console()
+    API = console.input("[bold #e6a330]Let Begin with Groq [/bold #e6a330][green]API[/green][bold #0b7ce6] (https://console.groq.com/keys): [/bold #0b7ce6]")
+    with open(file_path, "w") as f:
+        f.write(f"GROQ_API = {API}")
+    console.print("\nYOU CAN CHANGE YOUR API USING init() from Nara")
+
+client = Groq(api_key=API)
 
 def Filter(txt:str) -> str|None:
     pattern = r"```python(.*?)```"
@@ -43,6 +66,29 @@ def update_source_file(file_path, new_code):
 
 
 def CreateTemplate(prompt):
+    """
+    Generates a Python template based on the provided prompt using the GROQ model.
+
+    Parameters
+    ----------
+    prompt : str
+        The prompt or instruction for generating the Python template.
+
+    Raises
+    ------
+    Exception
+        If no code is generated due to improper instruction.
+
+    Notes
+    -----
+    This function utilizes the GROQ model to generate Python code based on the provided prompt. 
+    It extracts the generated Python code, updates the source file with the new code, and 
+    replaces the function definition with the generated code.
+
+    Example
+    -------
+    >>> CreateTemplate("Create a Flask template with a route that returns 'Hello World'")
+    """
     raw_code = GroqGen(f"# Instruction Create This Template\n\n{prompt}")
     generated_code = Filter(raw_code)
 
@@ -54,5 +100,4 @@ def CreateTemplate(prompt):
         update_source_file(filepath, generated_code)
 
     else:
-        print("raw_code", raw_code)
         raise Exception("No code generated due to improper instruction.")

@@ -2,3 +2,4 @@ rich
 mailtm
 groq
 requests
+python-dotenv
