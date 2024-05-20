@@ -22,7 +22,6 @@ System = [
 ]
 
 
-
 def Filter(txt:str) -> str|None:
     pattern = r"```python(.*?)```"
     matches = re.findall(pattern, txt, re.DOTALL)
@@ -35,11 +34,12 @@ def Filter(txt:str) -> str|None:
 
 def GroqGen(Prompt:str):
     API = os.getenv("GROQ_API")
-    
+
     if not API:
         API = init()
-    
+
     client = Groq(api_key=API)
+
     completion = client.chat.completions.create(
     model="llama3-70b-8192",
     messages = System + [{ "role": "user", "content": Prompt }],
@@ -95,6 +95,11 @@ def CreateFunc():
     >>> @CreateFunc()
     ... def Addition(x, y):
     ...     pass
+
+        ######### OR ##########
+    >>> @CreateFunc()
+    ... def test():
+    ...     '''code for calucltor in tikinter'''
     """
     def wrapper(func):
         # Get the source code of the function
