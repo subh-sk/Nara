@@ -152,9 +152,17 @@ from Nara import CreateFunc
 def main1():
     print("Don't change this function")
 
-@CreateFunc()
-def selenium_code_for_flipkart() -> None: #type your reuirements code as function name
+# @CreateFunc()
+# def selenium_code_for_flipkart() -> None: #type your reuirements code as function name
     pass
+
+########## OR ###########
+
+#here you can specify your question in doc string.
+@CreateFunc()
+def test():
+    '''selenium code for click flipkart login button'''
+
 
 def main():
     print("Don't change this function")
