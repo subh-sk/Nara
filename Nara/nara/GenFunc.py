@@ -21,12 +21,7 @@ System = [
     {"role": "user", "content": "Sure, here's the Python function code for the add function as per your instructions:\n\n```python\ndef add(a: int = 0, b: int = 0) -> int:\n    return a + b\n```"},
 ]
 
-API = os.getenv("GROQ_API")
 
-if not API:
-    API = init()
-
-client = Groq(api_key=API)
 
 def Filter(txt:str) -> str|None:
     pattern = r"```python(.*?)```"
@@ -39,6 +34,12 @@ def Filter(txt:str) -> str|None:
         return None
 
 def GroqGen(Prompt:str):
+    API = os.getenv("GROQ_API")
+    
+    if not API:
+        API = init()
+    
+    client = Groq(api_key=API)
     completion = client.chat.completions.create(
     model="llama3-70b-8192",
     messages = System + [{ "role": "user", "content": Prompt }],
