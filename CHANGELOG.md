@@ -1,4 +1,4 @@
-### 0.2 - 20-05-2024
+### 0.1.5 - 20-05-2024
 
 * Fixed API bug
 * added init() function to set API
