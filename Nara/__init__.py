@@ -8,3 +8,4 @@ import sys
 
 from Nara.nara.GenFunc import CreateFunc
 from Nara.nara.GenTemplate import CreateTemplate
+from Nara.nara.init import init
