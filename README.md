@@ -2,6 +2,18 @@
 <img src="https://raw.githubusercontent.com/subh-sk/Nara/main/Logo/nara.png" width="300">
 </h1><br>
 
+<p>
+    <a href="https://pypi.org/project/nara" target="_blank">
+        <img src="https://img.shields.io/pypi/v/nara" />
+    </a>
+    <a href="https://pepy.tech/project/nara" target="_blank">
+        <img src="https://pepy.tech/badge/nara" />
+    </a>
+    <a href="https://github.com/subh-sk/Nara target="_blank">
+        <img src="https://img.shields.io/badge/nara-v1.5-violet" />
+    </a>
+    
+</p>
 
 # Nara
 
