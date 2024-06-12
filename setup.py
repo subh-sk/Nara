@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.2.0'
+VERSION = '0.2.5'
 
 classifiers = [
     'Development Status :: 5 - Production/Stable',
@@ -56,7 +56,7 @@ setup(
         'Pillow',
         'telethon',
         'python-dotenv',
-        'mimetypes',
+        
     ],
     # packages=find_packages(),
     packages=[

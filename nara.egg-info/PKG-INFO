@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: nara
-Version: 0.2.0
+Version: 0.2.5
 Summary: A versatile package for AI-based real-time information and chatbot interactions, creating temporary emails, generating random data, caching, and JSON manipulation.
 Home-page: https://github.com/subh-sk/Nara
 Author: Subhash Kumar, Divyansh Shukla, Yateesh Reddy
@@ -54,21 +54,20 @@ Requires-Dist: setuptools
 Requires-Dist: Pillow
 Requires-Dist: telethon
 Requires-Dist: python-dotenv
-Requires-Dist: mimetypes
 
 <h1 align="center">
 <img src="https://raw.githubusercontent.com/subh-sk/nara/main/Logo/nara.png" width="300">
 </h1><br>
 
 <p>
-    <a href="https://pypi.org/project/nara" target="_blank">
+    <a href="https://pypi.org/project/Nara" target="_blank">
         <img src="https://img.shields.io/pypi/v/nara" />
     </a>
-    <a href="https://pepy.tech/project/nara" target="_blank">
+    <a href="https://pepy.tech/project/Nara" target="_blank">
         <img src="https://pepy.tech/badge/nara" />
     </a>
-    <a href="https://github.com/subh-sk/nara target="_blank">
-        <img src="https://img.shields.io/badge/nara-v1.5-violet" />
+    <a href="https://github.com/subh-sk/Nara" target="_blank">
+        <img src="https://img.shields.io/badge/nara-v0.2.5-green" />
     </a>
     
 </p>

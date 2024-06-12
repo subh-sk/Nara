@@ -5,7 +5,7 @@ import inspect
 import os
 from dotenv import load_dotenv
 from rich.console import Console
-from Nara.nara.init import init
+from nara.nara.init import init
 
 
 current_dir = os.path.dirname(__file__)
@@ -31,7 +31,7 @@ def Filter(txt:str) -> str|None:
         return python_code
     else:
         return None
-
+ 
 def GroqGen(Prompt:str):
     API = os.getenv("GROQ_API")
 

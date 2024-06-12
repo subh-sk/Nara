@@ -4,7 +4,7 @@ import inspect
 import os
 from dotenv import load_dotenv
 from rich.console import Console
-from Nara.nara.init import init
+from nara.nara.init import init
 
 current_dir = os.path.dirname(__file__)
 file_path = os.path.join(current_dir, '.env')

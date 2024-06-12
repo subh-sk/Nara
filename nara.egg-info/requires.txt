@@ -11,4 +11,3 @@ setuptools
 Pillow
 telethon
 python-dotenv
-mimetypes
