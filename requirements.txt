@@ -3,3 +3,12 @@ mailtm
 groq
 requests
 python-dotenv
+datetime
+aiohttp
+beautifulsoup4
+wheel
+setuptools
+Pillow
+telethon
+python-dotenv
+mimetypes

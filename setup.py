@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.1'
+VERSION = '0.2.0'
 
 classifiers = [
     'Development Status :: 5 - Production/Stable',
@@ -30,7 +30,7 @@ classifiers = [
 ]
 
 setup(
-    name='Nara',
+    name='nara',
     version=VERSION,
     description="A versatile package for AI-based real-time information and chatbot interactions, creating temporary emails, generating random data, caching, and JSON manipulation.",
     long_description=open('README.md').read(),  # Assuming the README file is in Markdown format
@@ -43,29 +43,33 @@ setup(
     license='MIT',
     classifiers=classifiers,
     install_requires=[
-        'mailtm',
         'rich',
+        'mailtm',
+        'groq',
         'requests',
-        'mimesis',
-        'faker',
-        'groq'
-        # 'numpy',
-        # 'pandas',
-        # 'scipy',
-        # 'scikit-learn',
-        # 'tensorflow',
-        # 'torch',
-        # 'transformers',
+        'python-dotenv',
+        'datetime',
+        'aiohttp',
+        'beautifulsoup4',
+        'wheel',
+        'setuptools',
+        'Pillow',
+        'telethon',
+        'python-dotenv',
+        'mimetypes',
     ],
     # packages=find_packages(),
     packages=[
-        'Nara',
-        'Nara.nara',
-        'Nara.Extra',
-        'Nara.Extra.TempMail',
-        'Nara.Extra.Json',
+        'nara',
+        'nara.nara',
+        'nara.nara.tele_cloude_storage',
+        'nara.extra',
+        'nara.extra.TempMail',
+        'nara.extra.sql',
+        'nara.extra.Datetime',
+        'nara.extra.Json',
     ],
-    keywords=['ai','templategenerator','template generator','code generation', 'temp mail', 'ai chat', 'nara', 'nara ai', 'json','fakename','fakeid'],
+    keywords=['ai','templategenerator','template generator','code generation', 'temp mail','tempmailio','fake mail', 'ai chat', 'nara', 'nara ai', 'json','current date','datetime','today date',"cloude storage",'database','telegram'],
     project_urls={
         'Homepage': 'https://github.com/subh-sk/Nara',
         'Documentation': 'https://github.com/subh-sk/Nara/wiki',

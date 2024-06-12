@@ -1,3 +1,61 @@
+Metadata-Version: 2.1
+Name: nara
+Version: 0.2.0
+Summary: A versatile package for AI-based real-time information and chatbot interactions, creating temporary emails, generating random data, caching, and JSON manipulation.
+Home-page: https://github.com/subh-sk/Nara
+Author: Subhash Kumar, Divyansh Shukla, Yateesh Reddy
+Maintainer: Nara Developers
+Maintainer-email: naravirtualai@gmail.com
+License: MIT
+Project-URL: Homepage, https://github.com/subh-sk/Nara
+Project-URL: Documentation, https://github.com/subh-sk/Nara/wiki
+Project-URL: Download, https://pypi.org/project/nara/#files
+Project-URL: Release notes, https://github.com/subh-sk/Nara/releases
+Project-URL: Source, https://github.com/subh-sk/Nara
+Project-URL: Tracker, https://github.com/subh-sk/Nara/issues
+Keywords: ai,templategenerator,template generator,code generation,temp mail,tempmailio,fake mail,ai chat,nara,nara ai,json,current date,datetime,today date,cloude storage,database,telegram
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Software Development :: Testing
+Classifier: Operating System :: Microsoft :: Windows :: Windows 10
+Classifier: Operating System :: Microsoft :: Windows :: Windows 11
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Scientific/Engineering :: Image Processing
+Classifier: Topic :: Scientific/Engineering :: Visualization
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Quality Assurance
+Classifier: Topic :: Software Development :: Code Generators
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Application Frameworks
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Software Development :: Testing
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: rich
+Requires-Dist: mailtm
+Requires-Dist: groq
+Requires-Dist: requests
+Requires-Dist: python-dotenv
+Requires-Dist: datetime
+Requires-Dist: aiohttp
+Requires-Dist: beautifulsoup4
+Requires-Dist: wheel
+Requires-Dist: setuptools
+Requires-Dist: Pillow
+Requires-Dist: telethon
+Requires-Dist: python-dotenv
+Requires-Dist: mimetypes
+
 <h1 align="center">
 <img src="https://raw.githubusercontent.com/subh-sk/nara/main/Logo/nara.png" width="300">
 </h1><br>
@@ -185,8 +243,8 @@ from nara.Extra import LoadJson,JsonList,JsonDict,LoadTestResults
  #Example usage for create a json file if not exist and save your jason as list formate
 JsonList(FileName="data.json", name="Alice", age=30)
 
-└── test.py
-└── data.json
+â””â”€â”€ test.py
+â””â”€â”€ data.json
 data.json : [
                 {
                 "name": "Alice",
@@ -198,8 +256,8 @@ data.json : [
 #Example usage for create a json file if not exist and save your jason as Dict formate
 JsonDict(Key="username", Value="johndoe", FileName="config.json")
 
-└── test.py
-└── config.json
+â””â”€â”€ test.py
+â””â”€â”€ config.json
 config.json : {
                 "username": "johndoe"
             }
@@ -237,8 +295,8 @@ from nara import CreateTemplate
 #Example usage for create template code of the provided prompt. like here we give selenium so it will change your file and write code for selenium structure
 CreateTemplate("selenium")
 
-└── test.py :  CreateTemplate("selenium")
-################## make code for selenium template 👇 ####################
+â””â”€â”€ test.py :  CreateTemplate("selenium")
+################## make code for selenium template ðŸ‘‡ ####################
 test.py :
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -270,7 +328,7 @@ close_browser()
 ### Usage to Create Function code Using AI
 ```py
 
-# └── test.py :
+# â””â”€â”€ test.py :
 
 from nara import CreateFunc
 
@@ -294,7 +352,7 @@ def main():
 
 
         ###### RESULT ######## 
-# └── test.py :
+# â””â”€â”€ test.py :
 from nara import CreateFunc
 
 
