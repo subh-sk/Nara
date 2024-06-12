@@ -3,13 +3,13 @@
 </h1><br>
 
 <p>
-    <a href="https://pypi.org/project/nara" target="_blank">
+    <a href="https://pypi.org/project/Nara" target="_blank">
         <img src="https://img.shields.io/pypi/v/nara" />
     </a>
-    <a href="https://pepy.tech/project/nara" target="_blank">
+    <a href="https://pepy.tech/project/Nara" target="_blank">
         <img src="https://pepy.tech/badge/nara" />
     </a>
-    <a href="https://github.com/subh-sk/nara target="_blank">
+    <a href="https://github.com/subh-sk/Nara target="_blank">
         <img src="https://img.shields.io/badge/nara-v1.2-violet" />
     </a>
     
