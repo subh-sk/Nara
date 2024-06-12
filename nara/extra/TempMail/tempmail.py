@@ -3,7 +3,8 @@ from mailtm import Email
 from time import sleep
 import re
 from rich import print
-from Nara.Extra.TempMail.retry import retry
+from nara.extra.TempMail.retry import retry
+
 from rich.console import Console
 
 
