@@ -9,7 +9,7 @@
     <a href="https://pepy.tech/project/Nara" target="_blank">
         <img src="https://pepy.tech/badge/nara" />
     </a>
-    <a href="https://github.com/subh-sk/Nara target="_blank">
+    <a href="https://github.com/subh-sk/Nara" target="_blank">
         <img src="https://img.shields.io/badge/nara-v1.2-violet" />
     </a>
     
