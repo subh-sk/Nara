@@ -25,7 +25,10 @@ async def async_CurrentDateTime(current_timestamp=False,Current_Date=False,encod
                     time_obj = clock_element.text.strip()
                     if encode:
                         try:time_obj = datetime.strptime(time_obj, "%H:%M:%S").time()
-                        except:time_obj = datetime.strptime(time_obj, "%I:%M:%S %p")
+                        except:
+                            try:
+                                time_obj = datetime.strptime(time_obj, "%I:%M:%S%p")
+                            except:time_obj = datetime.strptime(time_obj,"%I:%M:%S %p")
                 
                 date_element = soup.find('div', class_='clockdate')
                 if date_element:
@@ -52,7 +55,10 @@ async def async_CurrentDateTime(current_timestamp=False,Current_Date=False,encod
                     try:time_obj = datetime.strptime(time_obj, "%H:%M:%S").time()
                     except:
                         time_obj = re.sub(r"(\d{2}:\d{2}:\d{2})([APM]+)", r"\1 \2", time_obj)
-                        time_obj = datetime.strptime(time_obj, "%I:%M:%S %p")
+                        
+                        try:
+                            time_obj = datetime.strptime(time_obj, "%I:%M:%S%p")
+                        except:time_obj = datetime.strptime(time_obj,"%I:%M:%S %p")
 
                 # print(time_obj)
 
@@ -82,8 +88,23 @@ async def async_CurrentDateTime(current_timestamp=False,Current_Date=False,encod
                 return None
 
 def CurrentDateTime(current_timestamp=False,Current_Date=False,encode=False,Country='India')->str|datetime:
-    html = requests.get(f"https://time.is/{Country}", headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"})
-    if html.status_code!=200:raise Exception("Invalid Country name or error while fetching time date")
+    headers= {
+    "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+    "accept-language": "en-US,en;q=0.9",
+    "cache-control": "max-age=0",
+    "priority": "u=0, i",
+    "sec-ch-ua": "\"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"126\", \"Google Chrome\";v=\"126\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "sec-fetch-dest": "document",
+    "sec-fetch-mode": "navigate",
+    "sec-fetch-site": "none",
+    "sec-fetch-user": "?1",
+    "upgrade-insecure-requests": "1",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+  }
+    html = requests.get(f"https://time.is/{Country}", headers=headers)
+    if html.status_code!=200:raise Exception("Invalid Country name or error while fetching time date",html.status_code)
     elif html.status_code == 200:
         html = html.content
         soup = BeautifulSoup(html, 'html.parser')
@@ -94,7 +115,10 @@ def CurrentDateTime(current_timestamp=False,Current_Date=False,encode=False,Coun
                     time_obj = clock_element.text.strip()
                     if encode:
                         try:time_obj = datetime.strptime(time_obj, "%H:%M:%S").time()
-                        except:time_obj = datetime.strptime(time_obj, "%I:%M:%S %p")
+                        except:
+                            try:
+                                time_obj = datetime.strptime(time_obj, "%I:%M:%S%p")
+                            except:time_obj = datetime.strptime(time_obj,"%I:%M:%S %p")
                 
                 date_element = soup.find('div', class_='clockdate')
                 if date_element:
@@ -121,7 +145,10 @@ def CurrentDateTime(current_timestamp=False,Current_Date=False,encode=False,Coun
                     try:time_obj = datetime.strptime(time_obj, "%H:%M:%S").time()
                     except:
                         time_obj = re.sub(r"(\d{2}:\d{2}:\d{2})([APM]+)", r"\1 \2", time_obj)
-                        time_obj = datetime.strptime(time_obj, "%I:%M:%S %p")
+                        
+                        try:
+                            time_obj = datetime.strptime(time_obj, "%I:%M:%S%p")
+                        except:time_obj = datetime.strptime(time_obj,"%I:%M:%S %p")
 
                 # print(time_obj)
 

@@ -1,4 +1,7 @@
-### 0.2.1 - 13-06-2024
+### 0.2.3 - 20-6-2024
+* fix tele_db bugs, currentTime and configuration 
+
+### 0.2 - 13-06-2024
 * Import changes <s>`from Nara.Extra import MailUrl`</s> -> `from nara.extra import MailUrl`
 * `Tele Clude Storage` new feature
 * `tempmailio` new feature

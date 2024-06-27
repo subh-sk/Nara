@@ -11,3 +11,4 @@ setuptools
 Pillow
 telethon
 python-dotenv
+pytz

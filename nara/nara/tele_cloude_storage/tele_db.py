@@ -1,6 +1,6 @@
 import json
-from telethon import TelegramClient, events, sync
-from dotenv import load_dotenv,set_key
+from telethon import TelegramClient, events, sync,types
+from dotenv import load_dotenv,set_key,get_key
 import os 
 import asyncio
 import warnings
@@ -25,8 +25,13 @@ console = Console()
 
 # Suppress DeprecationWarning
 warnings.simplefilter("ignore", category=DeprecationWarning)
-load_dotenv()
 
+
+dotenv_path = os.path.join(os.getcwd(), '.env')
+if not os.path.exists(dotenv_path):
+        open(dotenv_path, 'w').close()
+
+load_dotenv()
 
 def ConfigureDatabase():
     """
@@ -52,41 +57,31 @@ def ConfigureDatabase():
     Exception
         If there is any issue with creating or writing to the `.env` file.
     """
-    global api_id, api_hash, CHANNEL_ID, phone_number
+    global API_ID, API_HASH, CHANNEL_ID, PHONE_NUMBER
 
-    api_id = input("Enter Your API ID: ")
-    api_hash = input("Enter Your API HASH: ")
-    phone_number = input("Enter Your Phone Number with country code: ")
+    API_ID = input("Enter Your API ID: ")
+    API_HASH = input("Enter Your API HASH: ")
+    PHONE_NUMBER = input("Enter Your Phone Number with country code: ")
     CHANNEL_ID = input("Enter Your Channel ID: ")
     SESSION_NAME = input("Session Name: ")
     
-    dotenv_path = os.path.join(os.getcwd(), '.env')
     # Check if the .env file exists, if not create it
-    if not os.path.exists(dotenv_path):
-        open(dotenv_path, 'w').close()
+    # if not os.path.exists(dotenv_path):
+    #     open(dotenv_path, 'w').close()
 
     set_key(dotenv_path, 'CHANNEL_ID', CHANNEL_ID)
-    set_key(dotenv_path, 'API_ID', api_id)
-    set_key(dotenv_path, 'API_HASH', api_hash)
-    set_key(dotenv_path, 'PHONE_NUMBER', phone_number)
+    set_key(dotenv_path, 'API_ID', API_ID)
+    set_key(dotenv_path, 'API_HASH', API_HASH)
+    set_key(dotenv_path, 'PHONE_NUMBER', PHONE_NUMBER)
     set_key(dotenv_path, 'SESSION_NAME', SESSION_NAME)
     
     load_dotenv()
     # Your API ID and hash (from my.telegram.org)
-    api_id = os.getenv('API_ID')
-    api_hash = os.getenv('API_HASH')
-    phone_number = os.getenv('PHONE_NUMBER')  # Your phone number including country code
-    CHANNEL_ID = int(os.getenv('CHANNEL_ID'))
-    SESSION_NAME = os.getenv("SESSION_NAME")
-
-
-    # # Create the client and connect
-    # client = TelegramClient('data', api_id, api_hash)
-    # client.start(phone=phone_number)
-
-    # # channel = client.get_entity(CHANNEL_ID)
-    # channel = None
-    load_dotenv()
+    API_ID = get_key(dotenv_path,'API_ID')
+    API_HASH = get_key(dotenv_path,'API_HASH')
+    PHONE_NUMBER = get_key(dotenv_path,'PHONE_NUMBER')  # Your phone number including country code
+    CHANNEL_ID = int(get_key(dotenv_path,'CHANNEL_ID'))
+    SESSION_NAME = get_key(dotenv_path,"SESSION_NAME")
     print("configured Successfully.")
 
 
@@ -94,36 +89,51 @@ def ConfigureDatabase():
 
 
 class TeleCloudChannel:
-    def __init__(self):
-        ConfigureDatabase()
-        if  os.getenv('CHANNEL_ID') is None or os.getenv('API_ID') is None or os.getenv('API_HASH') is None or os.getenv('PHONE_NUMBER') is None:raise Exception("Configure your telegram channel.\nfrom Nara import tele_cloud_database\ntele_db.ConfigureDatabase()")
-        load_dotenv()
-        
-        # Your API ID and hash (from my.telegram.org)
-        api_id = os.getenv('API_ID')
-        api_hash = os.getenv('API_HASH')
-        phone_number = os.getenv('PHONE_NUMBER')  # Your phone number including country code
-        session_name = os.getenv("SESSION_NAME")
-        CHANNEL_ID = int(os.getenv('CHANNEL_ID'))
-
+    def __init__(self,api_id:str=None,api_hash:str=None,channel_id:int=None,phone_number:int=None,session_name:str=None):
+        if api_id is None or api_hash is None or channel_id is None or phone_number is None or session_name is None:
+            # print(get_key(dotenv_path,"CHANNEL_ID"))
+            # print("dotenv_path = ",dotenv_path,get_key(dotenv_path,'CHANNEL_ID'))
+            if  get_key(dotenv_path,'CHANNEL_ID') is None or get_key(dotenv_path,'API_ID') is None or get_key(dotenv_path,'API_HASH') is None or get_key(dotenv_path,'PHONE_NUMBER') is None:
+                # raise Exception("Configure your telegram channel.\nfrom nara import tele_db\ntele_db.ConfigureDatabase()")
+                ConfigureDatabase()
+                load_dotenv()
+            
+            # Your API ID and hash (from my.telegram.org)
+            self.API_ID = get_key(dotenv_path,'API_ID')
+            self.API_HASH = get_key(dotenv_path,'API_HASH')
+            self.PHONE_NUMBER = get_key(dotenv_path,'PHONE_NUMBER')  # Your phone number including country code
+            self.SESSION_NAME = get_key(dotenv_path,"SESSION_NAME")
+            self.CHANNEL_ID = get_key(dotenv_path,'CHANNEL_ID')
+            # print("channel id = ",self.CHANNEL_ID,type(self.CHANNEL_ID))
+        else:
+            self.API_ID = api_id
+            self.API_HASH = api_hash
+            self.PHONE_NUMBER = phone_number
+            self.SESSION_NAME = session_name
+            self.CHANNEL_ID = int(channel_id)
         # Create the client and connect
-        self.client:TelegramClient =TelegramClient(session_name, api_id, api_hash)
-        self.client.start(phone_number)
+        self.client:TelegramClient =TelegramClient(self.SESSION_NAME, self.API_ID, self.API_HASH)
+        self.client.start(self.PHONE_NUMBER)
         if not  self.client.is_user_authorized():
             print("You need to authorize first. Follow the instructions printed on the console.")
             return False
         
-        # Fetch the channel entity once and set it globally
-        self.channel:InputPeerChannel =  self.client.get_entity(CHANNEL_ID)
-        self.bot_id = self.client.get_me().id
+        # # Fetch the channel entity once and set it globally
+        # self.channel:InputPeerChannel =  self.client.get_entity(CHANNEL_ID)
+        try:
+            self.channel = self.client.get_entity(types.PeerChannel(int(self.CHANNEL_ID)))
+            print(f"Successfully connected to channel: {self.channel.title}")
+        except Exception as e:
+            print(f"An error occurred while getting the channel entity: {e}")
+            self.channel = None
     
-    async def add_participant(self, phone_number: str) -> None:
+    async def add_participant(self, PHONE_NUMBER: str) -> None:
         try:
             await self.client(InviteToChannelRequest(
                 channel=self.channel,
-                users=[await self.client.get_input_entity(phone_number)]
+                users=[await self.client.get_input_entity(PHONE_NUMBER)]
             ))
-            print(f"User with phone number {phone_number} added to the channel.")
+            print(f"User with phone number {PHONE_NUMBER} added to the channel.")
         except Exception as e:
             print(f"An error occurred while adding participant: {e}")
     
@@ -183,6 +193,7 @@ class TeleCloudChannel:
     async def find_text_by_id(self, message_id: int) -> str:
         try:
             message = await self.client.get_messages(self.channel, ids=message_id)
+            
             if message:
                 return message.text
             else:
@@ -455,6 +466,12 @@ class TeleCloudChannel:
                 return True
             else:print("Key not found.");return
         except:print("error msg_data = ",msg_data,type(msg_data))
+    
+    
+    async def close_telegram_channel(self) -> None:
+        await self.client.disconnect()
+    
+    
 
 class user_db:
     """
@@ -477,9 +494,9 @@ class user_db:
     >>> table = user_db("150")
     """
     
-    def __init__(self,table_id:str):
+    def __init__(self,table_id:str,api_id:str=None,api_hash:str=None,channel_id:int=None,phone_number:int=None,session_name:str=None):
         self.id = table_id
-        self.tele_channel = TeleCloudChannel()
+        self.tele_channel = TeleCloudChannel(api_id=api_id,api_hash=api_hash,channel_id=channel_id,phone_number=phone_number,session_name=session_name)
         self.msg_id:Optional[int] = None
         self.check = asyncio.get_event_loop()
         self.check.run_until_complete(self._init_check_table())
@@ -838,50 +855,49 @@ class user_db:
             return show_msg
         else:raise Exception("key must be of type list.")
 
+    def close(self) -> None:
+        """
+        Closes the connection to the Telegram channel.
 
+        Returns
+        -------
+        None
+            This function does not return anything.
+
+        Examples
+        --------
+        >>> instance = YourClass()
+        >>> instance.close()
+        """
+        self.check.run_until_complete(self.tele_channel.close_telegram_channel())
 
 def table_list()->list:
     """
     Retrieves the list of tables from your database after authenticating the user.
-
-    If the authentication token is not set in the environment, prompts the user to set it up 
-    for the first time. Subsequent calls will prompt for the token and authenticate against 
-    the stored token.
 
     Returns
     -------
     list
         A list of tables retrieved from your Database.
 
-    Raises
-    ------
-    Exception
-        If the authentication fails due to an incorrect token.
-
     Examples
     --------
     >>> tables = table_list()
-    Setup Your Authentication Token For First Time: ********
-    Authentication Token Set Successfully.
-    Authentication Token: ********
+    
     """
-    import getpass
-    if os.getenv('AUTH_TOKEN') is None:
-        auth_token = getpass.getpass("Setup Your Authentication Token For First Time: ")
+    
+    tele = TeleCloudChannel()
+    loop = asyncio.get_event_loop()
+    return loop.run_until_complete(tele.table_list())
+    
+    # try:
+    #     tele = TeleCloudChannel()
+    #     loop = asyncio.get_event_loop()
+    #     return loop.run_until_complete(tele.table_list())
+    # except Exception as e:
+        
+    #     print("Database locked because you are using satabase somewhere. close user_db class and try again")
 
-        # Get the path of the .env file
-        dotenv_path = os.path.join(os.getcwd(), '.env')
-        # Save the new value to the .env file
-        set_key(dotenv_path, 'AUTH_TOKEN', auth_token)
-        print("Authentication Token Set Successfully.")
-    authentication_token = getpass.getpass("Authentication Token: ")
-    load_dotenv()
-    if authentication_token.lower() ==os.getenv('AUTH_TOKEN'):
-        tele = TeleCloudChannel()
-        loop = asyncio.get_event_loop()
-        return loop.run_until_complete(tele.table_list())
-    else:
-        raise Exception("Authentication Failed. Please check your authentication token.")
 
 
 if __name__ == "__main__":
@@ -892,8 +908,8 @@ if __name__ == "__main__":
     # loop.run_until_complete(tele.send_message("sdfhdf hii subh"))
     # a = loop.run_until_complete(tele.get_messages(limit=1))
     # print(a[0].id)
-    loop.run_until_complete(tele.delete_all_messages())
-    # print(loop.run_until_complete(tele.table_list()))
+    # loop.run_until_complete(tele.delete_all_messages())
+    print(loop.run_until_complete(tele.table_list()))
     # print(loop.run_until_complete(tele.get_caption_and_save_file(message_id=608,save_file=True)))
     # print(loop.run_until_complete(tele.upload_files(files_with_extensions={"https://cdn.discordapp.com/attachments/1231664483210891426/1247132867289681940/1.jpg?ex=665eea7e&is=665d98fe&hm=c9f4d70f45d824ff2c0869b34f0a9a1ae4090e14eace0f0e67a2bd81ee134d53&":'jpg',"https://images.unsplash.com/photo-1575936123452-b67c3203c357?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D":'png'},caption="online")))
     # loop.run_until_complete(tele.upload_file(file="https://images.unsplash.com/photo-1575936123452-b67c3203c357?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",caption="online",file_extension='png'))

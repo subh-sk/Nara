@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.2.1'
+VERSION = '0.2.3'
 
 classifiers = [
     'Development Status :: 5 - Production/Stable',
@@ -45,6 +45,7 @@ setup(
     install_requires=[
         'rich',
         'mailtm',
+        'pytz',
         'groq',
         'requests',
         'python-dotenv',
