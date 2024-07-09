@@ -26,12 +26,9 @@ console = Console()
 # Suppress DeprecationWarning
 warnings.simplefilter("ignore", category=DeprecationWarning)
 
-
-dotenv_path = os.path.join(os.getcwd(), '.env')
-if not os.path.exists(dotenv_path):
-        open(dotenv_path, 'w').close()
-
 load_dotenv()
+
+
 
 def ConfigureDatabase():
     """
@@ -57,6 +54,11 @@ def ConfigureDatabase():
     Exception
         If there is any issue with creating or writing to the `.env` file.
     """
+    
+    dotenv_path = os.path.join(os.getcwd(), '.env')
+    if not os.path.exists(dotenv_path):
+        open(dotenv_path, 'w').close()
+
     global API_ID, API_HASH, CHANNEL_ID, PHONE_NUMBER
 
     API_ID = input("Enter Your API ID: ")
@@ -91,8 +93,11 @@ def ConfigureDatabase():
 class TeleCloudChannel:
     def __init__(self,api_id:str=None,api_hash:str=None,channel_id:int=None,phone_number:int=None,session_name:str=None):
         if api_id is None or api_hash is None or channel_id is None or phone_number is None or session_name is None:
-            # print(get_key(dotenv_path,"CHANNEL_ID"))
-            # print("dotenv_path = ",dotenv_path,get_key(dotenv_path,'CHANNEL_ID'))
+            
+            dotenv_path = os.path.join(os.getcwd(), '.env')
+            if not os.path.exists(dotenv_path):
+                open(dotenv_path, 'w').close()
+            
             if  get_key(dotenv_path,'CHANNEL_ID') is None or get_key(dotenv_path,'API_ID') is None or get_key(dotenv_path,'API_HASH') is None or get_key(dotenv_path,'PHONE_NUMBER') is None:
                 # raise Exception("Configure your telegram channel.\nfrom nara import tele_db\ntele_db.ConfigureDatabase()")
                 ConfigureDatabase()
