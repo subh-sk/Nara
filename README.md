@@ -42,7 +42,7 @@ You can install the package using pip:
 pip install nara
 ```
 ```bash
-pip install -U https://github.com/subh-sk/Nara.git
+pip install -U git+https://github.com/subh-sk/Nara.git
 ```
 
 ## Usage
