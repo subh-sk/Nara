@@ -32,8 +32,8 @@ classifiers = [
 setup(
     name='nara',
     version=VERSION,
-    description="A versatile package for AI-based real-time information and chatbot interactions, creating temporary emails, generating random data, caching, and JSON manipulation.",
-    long_description=open('README.md').read(),  # Assuming the README file is in Markdown format
+    description="nara provides AI-driven real-time information retrieval, chatbot interactions, temporary email creation, random data generation, caching, JSON manipulation, async task handling, and structured threading.",
+    long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     url='https://github.com/subh-sk/Nara',
     author='Subhash Kumar, Divyansh Shukla, Yateesh Reddy',
