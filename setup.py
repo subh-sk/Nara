@@ -2,6 +2,9 @@ from setuptools import setup, find_packages
 
 VERSION = '0.3'
 
+with open("README.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
+
 classifiers = [
     'Development Status :: 5 - Production/Stable',
     'Intended Audience :: Education',
@@ -33,7 +36,7 @@ setup(
     name='nara',
     version=VERSION,
     description="nara provides AI-driven real-time information retrieval, chatbot interactions, temporary email creation, random data generation, caching, JSON manipulation, async task handling, and structured threading.",
-    long_description=open('README.md').read(),
+    long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/subh-sk/Nara',
     author='Subhash Kumar, Divyansh Shukla, Yateesh Reddy',
