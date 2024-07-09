@@ -17,7 +17,7 @@
 
 # nara
 
-nara is a comprehensive Python package designed to streamline various tasks such as creating temporary emails, generating random passwords, IDs, names, and more. It also includes features for caching to enhance response times, modifying JSON structures effortlessly, and integrating multiple AI models for real-time information retrieval and engaging chatbot interactions.
+Nara is a sophisticated Python package tailored for AI-powered automation, empowering users to effortlessly generate functions and Python templates based on intuitive prompts. Beyond this capability, it facilitates diverse tasks including creating temporary emails, generating random passwords, IDs, and names. Moreover, Nara features robust caching mechanisms to optimize performance and seamless JSON manipulation for efficient data handling.
 
 
 ## Key Features
@@ -28,8 +28,11 @@ nara is a comprehensive Python package designed to streamline various tasks such
 - **JSON Manipulation**: Simplify JSON data modification and handling with built-in utilities.
 - **AI Integration**: Access and interact with multiple AI models for real-time information and human-like chatbot conversations.
 - **AI Training**: Train and customize AI models to enhance their performance and adaptability.
+- **Async Functionality**: Utilize asynchronous capabilities for efficient task handling and performance optimization.
+- **File Management**: Manage and manipulate files with ease, providing comprehensive support for file-related operations.
 
 Whether you are developing applications, automating tasks, or integrating AI-based solutions, nara provides a robust and flexible toolkit to meet your needs.
+
 
 ## Installation
 
@@ -38,9 +41,102 @@ You can install the package using pip:
 ```bash
 pip install nara
 ```
+```bash
+pip install -U https://github.com/subh-sk/Nara.git
+```
 
 ## Usage
 - Here is a simple example of how to use nara:
+
+### Usage to Create template code Using AI
+```py
+from nara import CreateTemplate
+
+#Example usage for create template code of the provided prompt. like here we give selenium so it will change your file and write code for selenium structure
+CreateTemplate("selenium")
+
+└── test.py :  CreateTemplate("selenium")
+################## make code for selenium template 👇 ####################
+test.py :
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+# Replace with your preferred browser
+driver = webdriver.Chrome()  # For Chrome
+# driver = webdriver.Firefox()  # For Firefox
+
+def navigate_to_url(url):
+    driver.get(url)
+
+def find_element_by_xpath(xpath):
+    element = driver.find_element(By.XPATH, xpath)
+    return element
+
+def close_browser():
+    driver.quit()
+
+# Example usage
+url = "https://www.google.com"
+navigate_to_url(url)
+element = find_element_by_xpath("//input[@name='q']")
+print(element.get_attribute("placeholder"))
+
+close_browser()
+
+```
+
+### Usage to Create Function code Using AI
+```py
+
+# └── test.py :
+
+from nara import CreateFunc
+
+def main1():
+    print("Don't change this function")
+
+# @CreateFunc()
+# def selenium_code_for_flipkart() -> None: #type your reuirements code as function name
+    pass
+
+########## OR ###########
+
+#here you can specify your question in doc string.
+@CreateFunc()
+def test():
+    '''selenium code for click flipkart login button'''
+
+
+def main():
+    print("Don't change this function")
+
+
+        ###### RESULT ######## 
+# └── test.py :
+from nara import CreateFunc
+
+
+def main1():
+    print("Don't change this function")
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+def selenium_code_for_flipkart() -> int:
+    driver = webdriver.Chrome()  # Replace with your preferred browser
+    driver.get("https://www.flipkart.com")
+    WebDriverWait(driver, 10).until(EC.title_contains("Flipkart"))
+    # Add your custom code here to interact with the Flipkart webpage
+    driver.quit()
+    return 0
+
+def main():
+    print("Don't change this function")
+
+```
+
 
 ### Usage with temporary Mail
 - 1st Way
@@ -141,6 +237,7 @@ generator = RandomDataGenerator()
 # Example outputs
 print("Name:", generator.name())  # e.g., "John Doe"
 print("First Name:", generator.first_name())  # e.g., "John"
+
 print("Last Name:", generator.last_name())  # e.g., "Doe"
 print("Indian Name:", generator.indian_name())  # e.g., "राहुल राम"
 print("Foreign Name:", generator.foreign_name())  # e.g., "Marie Martin"
@@ -210,94 +307,6 @@ print(b()) #it will retrun the function within a millisecond using cahe.json
 
 ```
 
-### Usage to Create template code Using AI
-```py
-from nara import CreateTemplate
-
-#Example usage for create template code of the provided prompt. like here we give selenium so it will change your file and write code for selenium structure
-CreateTemplate("selenium")
-
-└── test.py :  CreateTemplate("selenium")
-################## make code for selenium template 👇 ####################
-test.py :
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-
-# Replace with your preferred browser
-driver = webdriver.Chrome()  # For Chrome
-# driver = webdriver.Firefox()  # For Firefox
-
-def navigate_to_url(url):
-    driver.get(url)
-
-def find_element_by_xpath(xpath):
-    element = driver.find_element(By.XPATH, xpath)
-    return element
-
-def close_browser():
-    driver.quit()
-
-# Example usage
-url = "https://www.google.com"
-navigate_to_url(url)
-element = find_element_by_xpath("//input[@name='q']")
-print(element.get_attribute("placeholder"))
-
-close_browser()
-
-```
-
-### Usage to Create Function code Using AI
-```py
-
-# └── test.py :
-
-from nara import CreateFunc
-
-def main1():
-    print("Don't change this function")
-
-# @CreateFunc()
-# def selenium_code_for_flipkart() -> None: #type your reuirements code as function name
-    pass
-
-########## OR ###########
-
-#here you can specify your question in doc string.
-@CreateFunc()
-def test():
-    '''selenium code for click flipkart login button'''
-
-
-def main():
-    print("Don't change this function")
-
-
-        ###### RESULT ######## 
-# └── test.py :
-from nara import CreateFunc
-
-
-def main1():
-    print("Don't change this function")
-
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
-def selenium_code_for_flipkart() -> int:
-    driver = webdriver.Chrome()  # Replace with your preferred browser
-    driver.get("https://www.flipkart.com")
-    WebDriverWait(driver, 10).until(EC.title_contains("Flipkart"))
-    # Add your custom code here to interact with the Flipkart webpage
-    driver.quit()
-    return 0
-
-def main():
-    print("Don't change this function")
-
-```
 
 ## Authors
 - Subhash Kumar
