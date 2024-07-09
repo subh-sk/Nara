@@ -254,6 +254,102 @@ print("Password:", generator.password(length=12, special_count=2, digit_count=2)
 
 
 ```
+### Usage with TimeIt
+```py
+from nara.extra TimeIt
+
+@TimeIt
+def my_function():
+    time.sleep(1)
+
+my_function()
+
+# Example Output: • Execution time for 'my_function' : 1.000956 Seconds.
+```
+
+### Usage with run_multiple_times
+```py
+from nara.extra run_multiple_times
+
+@run_multiple_times(5)
+async def task_runner():
+    pass # Your Code Implementation
+
+@run_multiple_times(5)
+def task_runner():
+    # # Your Code Implementation
+
+# This will run `task_runner` 5 times concurrently when called.
+
+# Note: This works for both synchronous and asynchronous functions.
+```
+
+### Usage with repeat_forever
+
+```py
+from nara.extra import repeat_forever
+
+@repeat_forever(sleep_interval=2.0, end_after="10 minutes")
+def my_function():
+    print("Hello, World!")
+
+@repeat_forever(sleep_interval=1.0, end_after="5 minutes")
+async def my_function():
+    print("Hello, World!")
+
+"""
+This code uses the @repeat_forever decorator to create two functions (my_function), one synchronous and one asynchronous, that will execute repeatedly at specified intervals (sleep_interval). They will continue to run until the specified end time (end_after) is reached, simulating a while True loop behavior.
+"""
+```
+### Usage with async_threaded_task
+
+
+```py
+from nara.extra import async_threaded_task
+
+@async_threaded_task
+async def async_function(*args, **kwargs):
+    # Function body
+
+# Can also specify the number of threads to use for execution.
+@async_threaded_task(1)
+async def async_function(*args, **kwargs):
+    # Function body
+
+async def main():
+    await async_function()
+
+asyncio.run(main())
+
+"""
+This decorator is useful for running async functions that need to be executed in a thread-safe manner, typically when interfacing with synchronous libraries
+or performing blocking I/O operations.
+"""
+```
+### Usage with display_file_structure
+
+```py
+from nara.extra import display_file_structure
+
+display_file_structure() # Call the function.
+
+"""
+This displays the working files and folders structure.
+"""
+```
+
+### Usage with clear_pycache_directories
+```py
+import os
+from nara.extra import clear_pycache_directories
+
+clear_pycache_directories(directory=os.getcwd(), display_status=True)
+
+"""
+The provided code snippet clears all the `__pycache__` directories from the specified path. Setting `display_status` to True displays information about the deleted directories.
+"""
+```
+
 
 ### Usage with json Files
 ```py
