@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.2.3'
+VERSION = '0.2.4'
 
 classifiers = [
     'Development Status :: 5 - Production/Stable',
@@ -57,6 +57,7 @@ setup(
         'Pillow',
         'telethon',
         'python-dotenv',
+        'humanfriendly',
         
     ],
     # packages=find_packages(),
@@ -68,9 +69,26 @@ setup(
         'nara.extra.TempMail',
         'nara.extra.sql',
         'nara.extra.Datetime',
-        'nara.extra.Json',
+        'nara.extra.fake',
+        'nara.extra.async_task',
+        'nara.extra.file_manager',
+        'nara.extra.Time',
     ],
-    keywords=['ai','templategenerator','template generator','code generation', 'temp mail','tempmailio','fake mail', 'ai chat', 'nara', 'nara ai', 'json','current date','datetime','today date',"cloude storage",'database','telegram'],
+
+    keywords = [
+    'nara',
+    'ai',
+    'template generator',
+    'cloud storage',
+    'temporary email',
+    'SQL utilities',
+    'datetime utilities',
+    'fake data generation',
+    'async tasks',
+    'file management',
+    'time utilities',
+],
+
     project_urls={
         'Homepage': 'https://github.com/subh-sk/Nara',
         'Documentation': 'https://github.com/subh-sk/Nara/wiki',

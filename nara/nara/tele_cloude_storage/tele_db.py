@@ -367,8 +367,6 @@ class TeleCloudChannel:
             print(f"An error occurred while deleting messages: {e}")
 
         
-
-        
     async def find_replies_to_message_id(self, message_id: int) -> List[str]:
         try:
             replies_text = []
@@ -494,34 +492,44 @@ class user_db:
     >>> table = user_db("150")
     """
     
-    def __init__(self,table_id:str,api_id:str=None,api_hash:str=None,channel_id:int=None,phone_number:int=None,session_name:str=None):
+    def __init__(self,table_id:str=None,api_id:str=None,api_hash:str=None,channel_id:int=None,phone_number:int=None,session_name:str=None):
         self.id = table_id
         self.tele_channel = TeleCloudChannel(api_id=api_id,api_hash=api_hash,channel_id=channel_id,phone_number=phone_number,session_name=session_name)
         self.msg_id:Optional[int] = None
         self.check = asyncio.get_event_loop()
-        self.check.run_until_complete(self._init_check_table())
+        if self.id:
+            self.check.run_until_complete(self._init_check_table())
 
     async def _init_check_table(self):
         result = await self.tele_channel.find_table(table_id=self.id)
         # print("result = ",result)
         if not result:
             print("Table not Found.")
-            create_table = input("Create Table? (y/n): ")
-            if create_table.lower() in ["y", "yes"]:
-                msg_id = await self.tele_channel.send_message(message=f"`table_id:{self.id}`\n[]")
-                print("Table Created with id : ",self.id)
-                # await USER(table_id=self.id)
-                self.msg_id = msg_id
-                # print("Table Created successfully with id : ",self.msg_id)
-                await self._post_table_creation()
-            else:raise Exception("Table Not Found. Check again or create table with provided id.")
+            msg_id = await self.tele_channel.send_message(message=f"`table_id:{self.id}`\n[]")
+            print("Table Created with id : ",self.id)
+            self.msg_id = msg_id
+            print("Table Created with id : ",self.id)
+            await self._post_table_creation()
+            
         else:
             self.msg_id = result[0]
             # print("self.msg_id = ",self.msg_id)
+            
+            
     async def _post_table_creation(self):
         # Handle any logic needed after table creation
         await self._init_check_table()
 
+    def create_table(self,table_id:str) -> None:
+        '''
+        Create a new table.
+        '''
+        result = self.check.run_until_complete( self.tele_channel.find_table(table_id=table_id))
+        if not result:
+            self.check.run_until_complete(self.tele_channel.send_message(message=f"`table_id:{table_id}`\n[]"))
+            print("Table Created with id : ",table_id)
+            self.id = table_id
+        
     def show_table(self,save_file:bool = False) -> list:
         """
         Retrieves and displays all documents in the table.

@@ -12,3 +12,4 @@ Pillow
 telethon
 python-dotenv
 pytz
+humanfriendly

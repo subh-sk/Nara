@@ -1,8 +1,12 @@
+import asyncio
 import json
 import time
 from functools import wraps
 from typing import Any, Callable, Dict, List, Union
 from rich import print as rprint
+from rich.console import Console
+from rich.markdown import Markdown
+console = Console()
 
 def SaveTestResults(OutputFile: str, **outerkwargs: Dict[str, Callable]) -> Callable:
     """
@@ -101,39 +105,6 @@ def LoadTestResults(inputFile: str) -> List[Dict[str, Union[str, Any, float]]]:
         return []
 
 
-def TimeIt(func: Callable) -> Callable:
-    """
-    Decorator function to time the execution of a function.
-
-    Parameters
-    ----------
-    func : Callable
-        The function to be decorated.
-
-    Returns
-    -------
-    Callable
-        The decorated function with timing functionality.
-
-    Examples
-    --------
-    @TimeIt
-    def test_function(x: int, y: int) -> int:
-        return x + y
-
-    test_function(1, 2)
-
-    This will time the execution of the 'test_function' function and print the result.
-    """
-    @wraps(func)
-    def wrapper(*args: Any, **kwargs: Any) -> Any:
-        StartTime: float = time.time()
-        result: Any = func(*args, **kwargs)
-        EndTime: float = time.time()
-
-        rprint("[bold green]Time taken:[/bold green] {} seconds".format(EndTime - StartTime))
-        return result
-    return wrapper
 
 
 if __name__ == "__main__":
@@ -148,8 +119,5 @@ if __name__ == "__main__":
     for result in LoadedResults:
         rprint("[bold green]Test Result:[/bold green] {}".format(result))
 
-    @TimeIt
-    def test_function(x: int, y: int) -> int:
-        return x + y
 
     print(test_function(1, 2))

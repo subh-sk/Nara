@@ -10,7 +10,7 @@
         <img src="https://pepy.tech/badge/nara" />
     </a>
     <a href="https://github.com/subh-sk/Nara" target="_blank">
-        <img src="https://img.shields.io/badge/nara-v0.2.1-green" />
+        <img src="https://img.shields.io/badge/nara-v0.3-green" />
     </a>
     
 </p>
@@ -108,75 +108,55 @@ db = tele_db.user_db(table_id="100") #It will check configuration, If configurat
 print(db.count()) #used to count the number of tables
 
 ```
-### Usage with async_CurrentDateTime and CurrentDateTime
+### Usage with CurrentDateTime
 - ### Current time and date of all country
-```py
-#Usage case of async_CurrentDateTime in async version
-from nara.extra import async_CurrentDateTime
-import asyncio
-async def main():
-    # Example 1: Fetch only the current time as a string
-    current_time = await async_CurrentDateTime(current_timestamp=True, Country='unitedstates')
-    print(f"Current Time (string): {current_time}")
-
-    # Example 2: Fetch only the current date as a string
-    current_date = await async_CurrentDateTime(Current_Date=True, Country='India')
-    print(f"Current Date (string): {current_date}")
-
-    # Example 3: Fetch both current time and date as strings
-    current_time, current_date = await async_CurrentDateTime(current_timestamp=True, Current_Date=True, Country='Japan')
-    print(f"Current Time (string): {current_time}")
-    print(f"Current Date (string): {current_date}")
-
-    # Example 4: Fetch only the current time as a datetime object
-    current_time = await async_CurrentDateTime(current_timestamp=True, encode=True, Country='India')
-    print(f"Current Time (datetime): {current_time}")
-
-    # Example 5: Fetch only the current date as a datetime object
-    current_date = await async_CurrentDateTime(Current_Date=True, encode=True, Country='India')
-    print(f"Current Date (datetime): {current_date}")
-
-    # Example 6: Fetch both current time and date as datetime objects
-    current_time, current_date = await async_CurrentDateTime(current_timestamp=True, Current_Date=True, encode=True, Country='India')
-    print(f"Current Time (datetime): {current_time}")
-    print(f"Current Date (datetime): {current_date}")
-
-# Run the async main function
-asyncio.run(main())
-
-```
 
 ```py
 from nara.extra import CurrentDateTime
 
-# Example 1: Fetch only the current time as a string
-current_time = CurrentDateTime(current_timestamp=True, Country='India')
-print(f"Current Time (string): {current_time}")
+# Initialize the CurrentDateTime object
+datetime_obj = CurrentDateTime()
 
-# Example 2: Fetch only the current date as a string
-current_date = CurrentDateTime(Current_Date=True, Country='India')
-print(f"Current Date (string): {current_date}")
+# Print current time of India in str
+print(datetime_obj.time("in"))
 
-# Example 3: Fetch both current time and date as strings
-current_time, current_date = CurrentDateTime(current_timestamp=True, Current_Date=True, Country='India')
-print(f"Current Time (string): {current_time}")
-print(f"Current Date (string): {current_date}")
+# Print current time of India in datetime formate
+print(datetime_obj.time("in", encode=True))
 
-# Example 4: Fetch only the current time as a datetime object
-current_time = CurrentDateTime(current_timestamp=True, encode=True, Country='unitedstates')
-print(f"Current Time (datetime): {current_time}")
+# Print current date of India datetime formate
+print(datetime_obj.date("in", encode=True))
 
-# Example 5: Fetch only the current date as a datetime object
-current_date = CurrentDateTime(Current_Date=True, encode=True, Country='Japan')
-print(f"Current Date (datetime): {current_date}")
+# Print current date of India in str 
+print(datetime_obj.date("in"))
 
-# Example 6: Fetch both current time and date as datetime objects
-current_time, current_date = CurrentDateTime(current_timestamp=True, Current_Date=True, encode=True, Country='India')
-print(f"Current Time (datetime): {current_time}")
-print(f"Current Date (datetime): {current_date}")
+# Print country codes
+print(datetime_obj.country_codes())
 
 ```
+### Usage with RandomDataGenerator
+```py
+from nara.extra import RandomDataGenerator
+generator = RandomDataGenerator()
 
+# Example outputs
+print("Name:", generator.name())  # e.g., "John Doe"
+print("First Name:", generator.first_name())  # e.g., "John"
+print("Last Name:", generator.last_name())  # e.g., "Doe"
+print("Indian Name:", generator.indian_name())  # e.g., "राहुल राम"
+print("Foreign Name:", generator.foreign_name())  # e.g., "Marie Martin"
+print("Location:", generator.location())  # e.g., "Antarctica"
+print("Address:", generator.address())  # e.g., "123 Main St, Springfield, IL"
+print("Indian Address:", generator.indian_address())  # e.g., "मुंबई"
+print("Foreign Address:", generator.foreign_address())  # e.g., "Paris, France"
+print("Pincode:", generator.pincode())  # e.g., "123456"
+print("Date of Birth:", generator.dob())  # e.g., "2000-05-20"
+print("ID:", generator.id())  # e.g., "JohnDoe1234"
+print("Username:", generator.username())  # e.g., "johndoe1234"
+print("Random String:", generator.random_string(15))  # e.g., "aBcD1234eFgHiJkL"
+print("Password:", generator.password(length=12, special_count=2, digit_count=2))  # e.g., "aB@1cD!2eF3gH4"
+
+
+```
 
 ### Usage with json Files
 ```py
@@ -318,7 +298,6 @@ def main():
     print("Don't change this function")
 
 ```
-
 
 ## Authors
 - Subhash Kumar
