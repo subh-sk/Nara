@@ -134,38 +134,39 @@ class tempmailio:
                 current_date_time = datetime.now(pytz.timezone(tz))
                 
                 if message:
-                    message:dict = message[0]
+                    message:dict = message[-1]
                     
                     msg_date_time  = datetime.strptime(message.get('created_at').split('T')[0] + " " +message.get('created_at').split('T')[1].split('.')[0],"%Y-%m-%d %H:%M:%S")
-                    if current_date_time.date() != msg_date_time.date() and current_date_time.hour != msg_date_time.hour and current_date_time.minute != msg_date_time.minute and current_date_time.second+3 < msg_date_time.second:
-                        continue
                     
-                    if self.Printable:
-                        # Create a table
-                        table = Table(title="Email Information")
+                    if current_date_time.date() == msg_date_time.date() and current_date_time.hour == msg_date_time.hour and current_date_time.minute == msg_date_time.minute and current_date_time.second >= msg_date_time.second:
+                    
+                        if self.Printable:
+                            # Create a table
+                            table = Table(title="Email Information")
 
-                        # Define the columns
-                        table.add_column("Field", justify="left", style="cyan", no_wrap=True)
-                        table.add_column("Value", justify="left", style="magenta")
+                            # Define the columns
+                            table.add_column("Field", justify="left", style="cyan", no_wrap=True)
+                            table.add_column("Value", justify="left", style="magenta")
 
-                        # Add rows to the table
-                        for key, value in message.items():
-                            table.add_row(key, str(value))
+                            # Add rows to the table
+                            for key, value in message.items():
+                                table.add_row(key, str(value))
 
-                        # Print the table to the console
-                        console.print(table)
+                            # Print the table to the console
+                            console.print(table)
 
-                    # content = message['html'][0]
-                    content="\nSubject: " + message.get('subject')+"\nContent: " + message['body_html']
-                    url_pattern = r'https?://[^\s">]+'
-                    links = re.findall(url_pattern, content)
-                    if self.Printable:print(f"[#0b7ce6]\nLinks: [/#0b7ce6]{links}")
-                    dynamic_waiting(done_text="Links found\n",duration=1,check=True)
-                    yield links
-                    break
+                        # content = message['html'][0]
+                        content="\nSubject: " + message.get('subject')+"\nContent: " + message['body_html']
+                        url_pattern = r'https?://[^\s">]+'
+                        links = re.findall(url_pattern, content)
+                        if self.Printable:print(f"[#0b7ce6]\nLinks: [/#0b7ce6]{links}")
+                        dynamic_waiting(done_text="Links found\n",duration=1,check=True)
+                        yield links
+                        break
+                    else:dynamic_waiting(duration=1,check=False,steps=_+1)
                 else:dynamic_waiting(duration=1,check=False,steps=_+1)
                 if _ == self.timeout - 1:
-                    raise Exception("[#fa6c61]\nTimeout: No Links/mail found till " + str(self.timeout) + " seconds.")
+                    print("[#fa6c61]\nTimeout: No Otp/mail found till " + str(self.timeout) + " seconds.[/#fa6c61]"); yield []
         except Exception as e:print(f"[#fa6c61]{e}[/#fa6c61]"); yield []
 
 
@@ -227,39 +228,44 @@ class tempmailio:
                 current_date_time = datetime.now(pytz.timezone(tz))
                     
                 if message:
-                    message:dict = message[0]
+                    message:dict = message[-1]
+
+                    msg_date_time  = datetime.strptime(message.get('created_at').split('T')[0] + " " +message.get('created_at').split('T')[1].split('.')[0],"%Y-%m-%d %H:%M:%S")                    
                     
-                    msg_date_time  = datetime.strptime(message.get('created_at').split('T')[0] + " " +message.get('created_at').split('T')[1].split('.')[0],"%Y-%m-%d %H:%M:%S")
                     print(f"{current_date_time = },{msg_date_time = }")
-                    if current_date_time.date() != msg_date_time.date() and current_date_time.hour != msg_date_time.hour and current_date_time.minute != msg_date_time.minute and current_date_time.second+3 < msg_date_time.second:
-                        continue
+                    if current_date_time.date() == msg_date_time.date() and current_date_time.hour == msg_date_time.hour and current_date_time.minute == msg_date_time.minute and current_date_time.second >= msg_date_time.second:
+                        
                     
-                    if self.Printable:
-                        # Create a table
-                        table = Table(title="Email Information")
+                        if self.Printable:
+                            # Create a table
+                            table = Table(title="Email Information")
 
-                        # Define the columns
-                        table.add_column("Field", justify="left", style="cyan", no_wrap=True)
-                        table.add_column("Value", justify="left", style="magenta")
+                            # Define the columns
+                            table.add_column("Field", justify="left", style="cyan", no_wrap=True)
+                            table.add_column("Value", justify="left", style="magenta")
 
-                        # Add rows to the table
-                        for key, value in message.items():
-                            table.add_row(key, str(value))
+                            # Add rows to the table
+                            for key, value in message.items():
+                                table.add_row(key, str(value))
 
-                        # Print the table to the console
-                        console.print(table)
+                            # Print the table to the console
+                            console.print(table)
 
-                    # content = message['html'][0]
-                    content="\nSubject: " + message.get('subject')+"\nContent: " + message['body_html']
-                    otp_pattern = r'\b\d{' + str(OtpLength) + r'}\b'
-                    otp = re.findall(otp_pattern, content)
-                    if self.Printable:print(f"[#0b7ce6]OTP: [/#0b7ce6]{otp}")
-                    dynamic_waiting(done_text="OTP found\n",duration=1,check=True)
-                    yield otp
-                
+                        # content = message['html'][0]
+                        content="\nSubject: " + message.get('subject')+"\nContent: " + message['body_html']
+                        otp_pattern = r'\b\d{' + str(OtpLength) + r'}\b'
+                        otp = re.findall(otp_pattern, content)
+                        if self.Printable:print(f"[#0b7ce6]OTP: [/#0b7ce6]{otp}")
+                        dynamic_waiting(done_text="OTP found\n",duration=1,check=True)
+                        yield otp
+                    
+                    else:dynamic_waiting(duration=1,check=False,steps=_+1)
+                    
                 else:dynamic_waiting(duration=1,check=False,steps=_+1)
+                
                 if _ == self.timeout - 1:
-                    raise Exception("[#fa6c61]\nTimeout: No Otp/mail found till " + str(self.timeout) + " seconds.")
+                    print("[#fa6c61]\nTimeout: No Otp/mail found till " + str(self.timeout) + " seconds.[/#fa6c61]"); yield []
+
         except Exception as e:print(f"[#fa6c61]{e}[/#fa6c61]"); yield []
 
 
