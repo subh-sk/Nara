@@ -10,9 +10,11 @@ from rich.markdown import Markdown
 import requests
 import random
 console = Console()
-
+from typing import Generator
 import time
 import sys
+from datetime import datetime
+import pytz
 
 def print_with_overwrite(message):
     sys.stdout.write("\r" + " " * 50)  # Clear the entire line
@@ -42,7 +44,6 @@ class tempmailio:
     def __init__(self,email_name:str=None,domain:str=None,timeout:int=30,Printable=False) -> None:
         self.email_name = email_name
         self.domain = domain
-        
         self.timeout = timeout
         self.Printable = Printable
         
@@ -69,7 +70,8 @@ class tempmailio:
         # Print the table to the console
         console.print(table)
 
-    def mailioUrl(self) ->list[str]: # type: ignore
+    def mailioUrl(self) ->Generator:
+        
         '''
         Generates a new email address and fetches URLs from incoming emails.
 
@@ -77,13 +79,6 @@ class tempmailio:
         and yields the email address. On subsequent iterations, it fetches URLs from the 
         email messages.
 
-        Parameters
-        ----------
-        Printable : bool, optional
-            If set to True, the generated email address and email contents will be printed 
-            to the console. Default is False.
-        Timeout : int, optional
-            The maximum number of iterations to fetch URLs. Default is 30.
 
         Yields
         ------
@@ -135,8 +130,16 @@ class tempmailio:
             for _ in range(self.timeout):
                 messages =requests.get(f"https://api.internal.temp-mail.io/api/v3/email/{mail}/messages")
                 message = messages.json()
+                tz = pytz.country_timezones['IS'][0]
+                current_date_time = datetime.now(pytz.timezone(tz))
+                
                 if message:
                     message:dict = message[0]
+                    
+                    msg_date_time  = datetime.strptime(message.get('created_at').split('T')[0] + " " +message.get('created_at').split('T')[1].split('.')[0],"%Y-%m-%d %H:%M:%S")
+                    if current_date_time.date() != msg_date_time.date() and current_date_time.hour != msg_date_time.hour and current_date_time.minute != msg_date_time.minute and current_date_time.second+3 < msg_date_time.second:
+                        continue
+                    
                     if self.Printable:
                         # Create a table
                         table = Table(title="Email Information")
@@ -162,11 +165,11 @@ class tempmailio:
                     break
                 else:dynamic_waiting(duration=1,check=False,steps=_+1)
                 if _ == self.timeout - 1:
-                    raise Exception("[#fa6c61]\nTimeout: No Links found till " + str(self.timeout) + " seconds.")
+                    raise Exception("[#fa6c61]\nTimeout: No Links/mail found till " + str(self.timeout) + " seconds.")
         except Exception as e:print(f"[#fa6c61]{e}[/#fa6c61]"); yield []
 
 
-    def mailioOtp(self,OtpLength=6)->list[int]: # type: ignore
+    def mailioOtp(self,OtpLength=6)->Generator:
         '''
         Generates a new email address and fetches OTPs from incoming email.
 
@@ -179,11 +182,8 @@ class tempmailio:
         ----------
         otp_length : int, optional
             The length of the OTP to be fetched. Default is 6.
-        Printable : bool, optional
-            If set to True, the generated email address and email contents will be printed 
-            to the console. Default is False.
-        timeout : int, optional
-            The maximum number of iterations to fetch OTPs. Default is 30.
+        
+
 
         Yields
         ------
@@ -201,7 +201,6 @@ class tempmailio:
         >>> otp_list = next(generator)
         >>> print(otp_list)
         ['789012']
-        
         '''
 
         try:
@@ -216,7 +215,7 @@ class tempmailio:
             response = requests.post(url, json=payload, headers=headers)
             # print(response.status_code)
             if response.status_code != 200: raise Exception(f"Failed to generate email address: {response.status_code} {response.text}")
-            mail =response.json().get("email") 
+            mail =response.json().get("email")
 
             if self.Printable:console.print(f"[#0b7ce6]\nEmail Adress: [/#0b7ce6] [#0be654]{mail}[/#0be654]")
         
@@ -224,8 +223,17 @@ class tempmailio:
             for _ in range(self.timeout):
                 messages =requests.get(f"https://api.internal.temp-mail.io/api/v3/email/{mail}/messages")
                 message = messages.json()
+                tz = pytz.country_timezones['IS'][0]
+                current_date_time = datetime.now(pytz.timezone(tz))
+                    
                 if message:
                     message:dict = message[0]
+                    
+                    msg_date_time  = datetime.strptime(message.get('created_at').split('T')[0] + " " +message.get('created_at').split('T')[1].split('.')[0],"%Y-%m-%d %H:%M:%S")
+                    print(f"{current_date_time = },{msg_date_time = }")
+                    if current_date_time.date() != msg_date_time.date() and current_date_time.hour != msg_date_time.hour and current_date_time.minute != msg_date_time.minute and current_date_time.second+3 < msg_date_time.second:
+                        continue
+                    
                     if self.Printable:
                         # Create a table
                         table = Table(title="Email Information")
@@ -244,14 +252,14 @@ class tempmailio:
                     # content = message['html'][0]
                     content="\nSubject: " + message.get('subject')+"\nContent: " + message['body_html']
                     otp_pattern = r'\b\d{' + str(OtpLength) + r'}\b'
-                    otp = re.findall(otp_pattern, content[0])
-                    if self.Printable:print(f"[#0b7ce6]\OTP: [/#0b7ce6]{otp}")
+                    otp = re.findall(otp_pattern, content)
+                    if self.Printable:print(f"[#0b7ce6]OTP: [/#0b7ce6]{otp}")
                     dynamic_waiting(done_text="OTP found\n",duration=1,check=True)
                     yield otp
-                    break
+                
                 else:dynamic_waiting(duration=1,check=False,steps=_+1)
                 if _ == self.timeout - 1:
-                    raise Exception("[#fa6c61]\nTimeout: No Links found till " + str(self.timeout) + " seconds.")
+                    raise Exception("[#fa6c61]\nTimeout: No Otp/mail found till " + str(self.timeout) + " seconds.")
         except Exception as e:print(f"[#fa6c61]{e}[/#fa6c61]"); yield []
 
 
