@@ -232,7 +232,7 @@ class tempmailio:
 
                     msg_date_time  = datetime.strptime(message.get('created_at').split('T')[0] + " " +message.get('created_at').split('T')[1].split('.')[0],"%Y-%m-%d %H:%M:%S")                    
                     
-                    print(f"{current_date_time = },{msg_date_time = }")
+                   
                     if current_date_time.date() == msg_date_time.date() and current_date_time.hour == msg_date_time.hour and current_date_time.minute == msg_date_time.minute and current_date_time.second >= msg_date_time.second:
                         
                     
