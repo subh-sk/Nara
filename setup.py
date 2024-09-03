@@ -70,6 +70,7 @@ setup(
         'nara.nara.tele_cloude_storage',
         'nara.extra',
         'nara.extra.TempMail',
+        'nara.extra.Json',
         'nara.extra.sql',
         'nara.extra.Datetime',
         'nara.extra.fake',
