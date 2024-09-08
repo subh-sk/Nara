@@ -190,7 +190,7 @@ def MailOtp(OtpLength=6,Printable=False,Timeout=30)->int: # type: ignore
 
                 content = message['html']
                 otp_pattern = r'\b\d{' + str(OtpLength) + r'}\b'
-                otp = re.findall(otp_pattern, content[0])
+                otp = re.findall(otp_pattern, message['subject']+content[0])
                 yield otp
             if len(test.message_list()) == 0:
                 dynamic_waiting(duration=1,check=False,steps=_+1)
