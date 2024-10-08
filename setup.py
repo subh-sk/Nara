@@ -61,6 +61,7 @@ setup(
         'telethon',
         'python-dotenv',
         'humanfriendly',
+        'faker',
         
     ],
     # packages=find_packages(),
