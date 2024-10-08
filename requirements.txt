@@ -13,3 +13,4 @@ telethon
 python-dotenv
 pytz
 humanfriendly
+faker
