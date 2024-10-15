@@ -78,6 +78,7 @@ setup(
         'nara.extra.async_task',
         'nara.extra.file_manager',
         'nara.extra.Time',
+        'nara.extra.prompt'
     ],
 
     keywords = [
