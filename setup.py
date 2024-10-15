@@ -1,19 +1,19 @@
 from setuptools import setup, find_packages
 import os
 
-# Get the version dynamically (from environment variable or file)
-def get_version():
-    version = os.getenv("NARA_VERSION", "0.3.2")
-    return version
+version = "0.3.79"
 
 # Read the long description from README.md
 def get_long_description():
     with open("README.md", "r", encoding="utf-8") as fh:
         return fh.read()
 
-# Package requirements
-install_requires = [
-    'rich',
+# Parse requirements.txt for dependencies
+def parse_requirements(filename):
+    if os.path.exists(filename):
+        with open(filename, 'r') as file:
+            return file.read().splitlines()
+    return ['rich',
     'mailtm',
     'pytz',
     'groq',
@@ -28,8 +28,10 @@ install_requires = [
     'telethon',
     'python-dotenv',
     'humanfriendly',
-    'faker',
-]
+    'faker',]
+
+# Fetch dependencies from requirements.txt
+install_requires = parse_requirements('requirements.txt')
 
 # Classifiers for PyPI
 classifiers = [
@@ -62,7 +64,7 @@ classifiers = [
 # Dynamic setup configuration
 setup(
     name='nara',
-    version=get_version(),
+    version=version,
     description="AI-driven real-time information retrieval, chatbot interactions, and more.",
     long_description=get_long_description(),
     long_description_content_type='text/markdown',
@@ -77,6 +79,8 @@ setup(
     
     # Automatically find packages inside the project
     packages=find_packages(include=['nara', 'nara.*']),
+    
+    include_package_data=True,  # Include additional files specified in MANIFEST.in
 
     keywords=[
         'nara',
