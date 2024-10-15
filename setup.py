@@ -1,10 +1,37 @@
 from setuptools import setup, find_packages
+import os
 
-VERSION = '0.3.2'
+# Get the version dynamically (from environment variable or file)
+def get_version():
+    version = os.getenv("NARA_VERSION", "0.3.2")
+    return version
 
-with open("README.md", "r", encoding="utf-8") as fh:
-    long_description = fh.read()
+# Read the long description from README.md
+def get_long_description():
+    with open("README.md", "r", encoding="utf-8") as fh:
+        return fh.read()
 
+# Package requirements
+install_requires = [
+    'rich',
+    'mailtm',
+    'pytz',
+    'groq',
+    'requests',
+    'python-dotenv',
+    'datetime',
+    'aiohttp',
+    'beautifulsoup4',
+    'wheel',
+    'setuptools',
+    'Pillow',
+    'telethon',
+    'python-dotenv',
+    'humanfriendly',
+    'faker',
+]
+
+# Classifiers for PyPI
 classifiers = [
     'Development Status :: 5 - Production/Stable',
     'Intended Audience :: Education',
@@ -20,23 +47,24 @@ classifiers = [
     'Programming Language :: Python :: 3.11',
     'Programming Language :: Python :: 3.12',
     'Programming Language :: Python :: 3.13',
-     "Topic :: Scientific/Engineering :: Artificial Intelligence",
-      "Topic :: Scientific/Engineering :: Image Processing",
-      "Topic :: Scientific/Engineering :: Visualization",
-      "Topic :: Software Development",
-      "Topic :: Software Development :: Quality Assurance",
-      "Topic :: Software Development :: Code Generators",
-      "Topic :: Software Development :: Libraries",
-      "Topic :: Software Development :: Libraries :: Application Frameworks",
-      "Topic :: Software Development :: Libraries :: Python Modules",
-      "Topic :: Software Development :: Testing",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Image Processing",
+    "Topic :: Scientific/Engineering :: Visualization",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: Software Development :: Code Generators",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Testing",
 ]
 
+# Dynamic setup configuration
 setup(
     name='nara',
-    version=VERSION,
-    description="nara provides AI-driven real-time information retrieval, chatbot interactions, temporary email creation, random data generation, caching, JSON manipulation, async task handling, and structured threading.",
-    long_description=long_description,
+    version=get_version(),
+    description="AI-driven real-time information retrieval, chatbot interactions, and more.",
+    long_description=get_long_description(),
     long_description_content_type='text/markdown',
     url='https://github.com/subh-sk/Nara',
     author='Subhash Kumar, Divyansh Shukla, Yateesh Reddy',
@@ -45,55 +73,24 @@ setup(
     python_requires='>=3.10',
     license='MIT',
     classifiers=classifiers,
-    install_requires=[
-        'rich',
-        'mailtm',
-        'pytz',
-        'groq',
-        'requests',
-        'python-dotenv',
-        'datetime',
-        'aiohttp',
-        'beautifulsoup4',
-        'wheel',
-        'setuptools',
-        'Pillow',
-        'telethon',
-        'python-dotenv',
-        'humanfriendly',
-        'faker',
-        
-    ],
-    packages=[
-        'nara',
-        'nara.nara',
-        'nara.nara.tele_cloude_storage',
-        'nara.nara.llm'
-        'nara.extra',
-        'nara.extra.TempMail',
-        'nara.extra.Json',
-        'nara.extra.sql',
-        'nara.extra.Datetime',
-        'nara.extra.fake',
-        'nara.extra.async_task',
-        'nara.extra.file_manager',
-        'nara.extra.Time',
-        'nara.extra.prompt'
-    ],
+    install_requires=install_requires,
+    
+    # Automatically find packages inside the project
+    packages=find_packages(include=['nara', 'nara.*']),
 
-    keywords = [
-    'nara',
-    'ai',
-    'template generator',
-    'cloud storage',
-    'temporary email',
-    'SQL utilities',
-    'datetime utilities',
-    'fake data generation',
-    'async tasks',
-    'file management',
-    'time utilities',
-],
+    keywords=[
+        'nara',
+        'ai',
+        'template generator',
+        'cloud storage',
+        'temporary email',
+        'SQL utilities',
+        'datetime utilities',
+        'fake data generation',
+        'async tasks',
+        'file management',
+        'time utilities',
+    ],
 
     project_urls={
         'Homepage': 'https://github.com/subh-sk/Nara',
@@ -102,5 +99,5 @@ setup(
         'Release notes': 'https://github.com/subh-sk/Nara/releases',
         'Source': 'https://github.com/subh-sk/Nara',
         'Tracker': 'https://github.com/subh-sk/Nara/issues',
-    }
+    },
 )
