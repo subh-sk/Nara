@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.3.1'
+VERSION = '0.3.2'
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -64,7 +64,6 @@ setup(
         'faker',
         
     ],
-    # packages=find_packages(),
     packages=[
         'nara',
         'nara.nara',
