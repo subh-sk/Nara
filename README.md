@@ -22,11 +22,6 @@ Nara is a sophisticated Python package tailored for AI-powered automation, empow
 
 ## Key Features
 
-- **Classification of Labels**: Classify and categorize data based on predefined labels.
-- **Multiple AI Models**: Access llm from multiple AI providers like Groq, Cohere, OpenAI, etc.
-- **Advanced Prompt template for system prompts**: advance prompt style with live functions.
-- **AI-Powered Function Generation**: Create functions and Python templates based on user prompts with a click of a button.
-- **AI-Powered Template Generation**: Create Python templates based on user prompts with a click of a button.
 - **Temporary Email Creation**: Easily generate and manage temporary emails for testing and other purposes.
 - **Random Data Generation**: Generate random passwords, IDs, names, and other data with customizable options.
 - **Caching**: Implement caching mechanisms to store data temporarily and improve performance.
@@ -142,71 +137,6 @@ def main():
 
 ```
 
-## How to use prompt template
-
-```py
-from nara.extra.prompt.base import Prompt, Role, Text, Image, Function
-from datetime import datetime
-
-
-def what_is_time():
-    return Text("current time is " + str(datetime.now()))
-
-system_prompt = Prompt(
-    template=[
-        Function(what_is_time),
-        Text("you are ai assistant"),
-        Text("your name is nara"),
-        Text("you are a helpful assistant"),
-    ],
-    separator="\n",
-)
-
-print(system_prompt.prompt)
-```
-
-
-### How to use llm models
-
-```py
-from nara.nara.llm._groq import Groq, Role, LLAMA_32_90B_TEXT_PREVIEW
-
-llm = Groq(model=LLAMA_32_90B_TEXT_PREVIEW, apiKey="your_api_key")
-
-r = llm.run("hello how are you?")
-
-print(r)
-```
-
-### How to use TextClassification
-```py
-from nara.nara.TextClassification import TextClassifier
-
-# Example usage
-classifier = TextClassifier()
-
-# data.csv contains two columns: "Examples" and "Labels"
-"""
-Examples, Labels
-apple, fruit
-banana, fruit
-orange, fruit
-car, vehicle
-train, vehicle
-truck, vehicle
-"""
-
-sentences, labels = classifier.load_data(r'data.csv', text_column='Examples', label_column='Labels')
-classifier.create_prototypes(sentences, labels)
-classifier.save_model('trained_text_classifier.pkl')
-# classifier.load_model('trained_text_classifier.pkl')
-
-while True:
-    new_example = input("Enter a new example: ")
-    predicted_label = classifier.advance_classify(new_example)
-    print(f"The predicted label for the new example is: {predicted_label}")
-
-```
 
 ### Usage with temporary Mail
 - 1st Way

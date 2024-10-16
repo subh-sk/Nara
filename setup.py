@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.3.70'
+VERSION = '0.3'
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -69,7 +69,6 @@ setup(
         'nara',
         'nara.nara',
         'nara.nara.tele_cloude_storage',
-        'nara.nara.llm',
         'nara.extra',
         'nara.extra.TempMail',
         'nara.extra.Json',
@@ -79,7 +78,6 @@ setup(
         'nara.extra.async_task',
         'nara.extra.file_manager',
         'nara.extra.Time',
-        'nara.extra.prompt'
     ],
 
     keywords = [
