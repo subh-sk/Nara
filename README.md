@@ -20,6 +20,13 @@
 
 `nara` is a powerful Python library that provides a comprehensive suite of tools for AI-driven tasks, including real-time information retrieval, chatbot interactions, and code generation. It also offers a rich set of utility functions for tasks like temporary email creation, random data generation, caching, JSON manipulation, asynchronous task handling, and structured threading.  `nara` simplifies complex tasks, boosts productivity, and streamlines your workflow.
 <!-- YATEESH DIVYANSH SUBHASH  -->
+## Installation
+
+Install `nara` using pip:
+```bash
+pip install nara
+```
+
 ## Features
 
 ### AI-Powered Features
@@ -44,7 +51,7 @@
 * **Large Language Model (LLM) Interaction:**
     * **`nara.llm`:** This module provides a unified interface for interacting with various LLMs, including Groq, OpenAI, Cohere, Sambanova, Together, and Ollama.  You can easily switch between different models and customize parameters like temperature and max tokens. Supports both synchronous and streaming responses.
         ```python
-        from nara.nara.llm._groq import Groq, LLAMA_32_90B_TEXT_PREVIEW
+        from nara.groq import Groq, LLAMA_32_90B_TEXT_PREVIEW
 
         llm = Groq(LLAMA_32_90B_TEXT_PREVIEW)  # Initialize the LLM
         response = llm.run("Translate 'Hello, World!' to Spanish.")
@@ -347,19 +354,12 @@
 
 
 
-## Installation
-
-Install `nara` using pip:
-```bash
-pip install nara
-```
-
 ## Usage
 
 ###  LLM Streaming Example (Groq)
 
 ```python
-from nara.nara.llm._groq import Groq, LLAMA_32_90B_TEXT_PREVIEW
+from nara.groq import Groq, LLAMA_32_90B_TEXT_PREVIEW
 
 llm = Groq(LLAMA_32_90B_TEXT_PREVIEW) 
 
