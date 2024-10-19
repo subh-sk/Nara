@@ -3,7 +3,7 @@ from functools import wraps
 import inspect
 from concurrent.futures import ThreadPoolExecutor
 
-def async_threaded_task(thread_count: int=1, *threading_args, **threading_kwargs):
+def asyncThreadedTask(thread_count: int=1, *threading_args, **threading_kwargs):
     """
     Wraps an asynchronous function with a decorator that runs it in a separate thread.
 

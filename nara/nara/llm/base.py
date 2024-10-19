@@ -11,22 +11,40 @@ import os
 load_dotenv()
 
 class Role(Enum):
+    """Enumeration for the roles in the messaging system."""
     system = "system"
     user = "user"
     assistant = "assistant"
 
 class ModelType(Enum):
+    """Enumeration for the types of models."""
     textonly = "textonly"
     textandimage = "textandimage"
 
-
 @dataclass
 class Model:
+    """Data class representing a model.
+
+    Attributes:
+        name (str): The name of the model.
+        typeof (ModelType): The type of the model (text-only or text-and-image).
+    """
     name: str
     typeof: ModelType
 
-
 class LLM(ABC):
+    """Abstract base class for Language Models (LLMs).
+
+    Attributes:
+        apiKey (str): API key for accessing the model.
+        messages (List[Dict[str, str]]): List of messages exchanged with the model.
+        temperature (float): Sampling temperature for generating responses.
+        systemPrompt (Optional[str]): System prompt to guide the model's behavior.
+        maxTokens (int): Maximum number of tokens for the model's responses.
+        model (Model): The model being used.
+        logger (logging.Logger): Logger for recording events and messages.
+    """
+    
     def __init__(
         self,
         model: Model,
@@ -37,6 +55,17 @@ class LLM(ABC):
         maxTokens: int = 2048,
         logFile: Optional[str] = None,
     ) -> None:
+        """Initializes the LLM with the given parameters.
+
+        Args:
+            model (Model): The model object to use for generating responses.
+            apiKey (str): The API key for the model.
+            messages (List[Dict[str, str]], optional): Initial messages to set context.
+            temperature (float, optional): The sampling temperature.
+            systemPrompt (Optional[str], optional): An optional system prompt.
+            maxTokens (int, optional): The maximum number of tokens for responses.
+            logFile (Optional[str], optional): Optional log file for logging events.
+        """
         
         self.apiKey = apiKey
         self.messages = messages
@@ -86,29 +115,60 @@ class LLM(ABC):
         if systemPrompt:
             self.addMessage(Role.system, systemPrompt)
 
-        
     @abstractmethod
     def run(self, prompt: str, save: bool = True) -> str:
+        """Generates a response based on the given prompt.
+
+        Args:
+            prompt (str): The input prompt to generate a response for.
+            save (bool, optional): Whether to save the response. Defaults to True.
+
+        Returns:
+            str: The generated response from the model.
+        """
         raise NotImplementedError
 
     @abstractmethod
     def streamRun(self, prompt: str, save: bool = True) -> str:
+        """Generates a response based on the given prompt using streaming.
+
+        Args:
+            prompt (str): The input prompt to generate a response for.
+            save (bool, optional): Whether to save the response. Defaults to True.
+
+        Returns:
+            str: The generated response from the model.
+        """
         raise NotImplementedError
     
     @abstractmethod
     def constructClient(self) -> None:
+        """Constructs the client to interact with the model."""
         raise NotImplementedError
 
     @abstractmethod
     def testClient(self) -> None:
+        """Tests the client to ensure it is set up correctly."""
         raise NotImplementedError
 
-    
     def addMessage(self, role: Role, content: str, imageUrl: Optional[str] = None) -> None:
+        """Adds a message to the message history.
+
+        Args:
+            role (Role): The role of the message sender.
+            content (str): The content of the message.
+            imageUrl (Optional[str], optional): Optional image URL to include in the message.
+        """
         ...
     
-    
     def addMessageVision(self, role: Role, content: str, imageUrl: Optional[str] = None) -> None:
+        """Adds a message that may include an image URL to the message history.
+
+        Args:
+            role (Role): The role of the message sender.
+            content (str): The content of the message.
+            imageUrl (Optional[str], optional): URL of the image to include in the message.
+        """
         
         if imageUrl is None:
             return self.addMessageTextOnly(role, content, imageUrl)
@@ -138,6 +198,13 @@ class LLM(ABC):
         self.messages.append(message)
 
     def addMessageTextOnly(self, role: Role, content: str, imageUrl: Optional[str] = None) -> None:
+        """Adds a text-only message to the message history.
+
+        Args:
+            role (Role): The role of the message sender.
+            content (str): The content of the message.
+            imageUrl (Optional[str], optional): Optional image URL (ignored for text-only).
+        """
         if type(role) is str:
             role = Role[role]
 
@@ -149,8 +216,18 @@ class LLM(ABC):
             "content": content
         })
 
-    
-    def getMessage(self, role: Role, content: str, imageUrl: Optional[str] = None) -> List[Dict[str, str]]:        
+    def getMessage(self, role: Role, content: str, imageUrl: Optional[str] = None) -> List[Dict[str, str]]:
+        """Constructs a message dictionary for the given role and content.
+
+        Args:
+            role (Role): The role of the message sender.
+            content (str): The content of the message.
+            imageUrl (Optional[str], optional): Optional image URL to include in the message.
+
+        Returns:
+            List[Dict[str, str]]: A dictionary representation of the message.
+        """
+        
         if type(role) is str:
             role = Role[role]
 
@@ -181,10 +258,13 @@ class LLM(ABC):
                 "content": content
             }
         
-    
     def log(self, **kwargs) -> None:
-        self.logger.info(kwargs)
+        """Logs the provided keyword arguments as an info message.
 
+        Args:
+            **kwargs: Additional context information to log.
+        """
+        self.logger.info(kwargs)
 
 if __name__ == "__main__":
     print(Role.system.value)

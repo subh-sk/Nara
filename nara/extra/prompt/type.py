@@ -10,6 +10,15 @@ class Role(Enum):
 
 @dataclass
 class File:
+    """
+    File class for text files
+
+    Args:
+        path: str
+        cache: bool = True
+    Returns:
+        str
+    """
     path: str
     cache: bool = True
     @property
@@ -28,10 +37,35 @@ class Text:
 
 @dataclass
 class Image:
+    """
+    Image class for images
+
+    Args:
+        text: str
+        url: str
+    """
     text: str
     url: str
 
 class Function:
+    """
+    Function class for functions
+
+    Args:
+        func: Callable
+        args: Any
+        kwargs: Any
+
+    Returns:
+        Any
+    
+    Example:
+
+    .. code-block:: python
+
+        x = Function(slow_function_1, 1, 2)
+        print(x())
+    """
     def __init__(self, func: Callable[..., Any], *args: Any, **kwargs: Any) -> None:
         self.func = func
         self.args = args

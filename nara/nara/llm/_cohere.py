@@ -1,12 +1,4 @@
-try:
-    from modules.llm.base import LLM, Model, ModelType, Role
-except ImportError:
-    import os
-    import sys
-    
-    sys.path.append(os.path.dirname(__file__))
-    from base import LLM, Model, ModelType, Role
-
+from nara.nara.llm.base import LLM, Model, ModelType, Role
 from typing import Optional, List, Dict, Generator
 from dotenv import load_dotenv
 from rich import print

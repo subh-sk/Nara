@@ -4,7 +4,7 @@ from rich.console import Console
 from rich.tree import Tree
 from rich.text import Text
 
-def display_file_structure(
+def displayFileStructure(
     directory: pathlib.Path = os.getcwd(),
     tree: Tree = None,
     console: Console = None
@@ -28,7 +28,7 @@ def display_file_structure(
                 style=style,
                 guide_style=style,
             )
-            display_file_structure(path, branch, console)
+            displayFileStructure(path, branch, console)
         else:
             text_filename = Text(path.name, "green")
             text_filename.highlight_regex(r"\..*$", "bold red")

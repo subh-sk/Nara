@@ -4,13 +4,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import io
 import os
 
-try:
-    from modules.prompt.type import Text, Image, Function, Role, File
-except ImportError:
-    
-    import sys
-    sys.path.append(os.path.dirname(__file__))
-    from type import Text, Image, Function, Role, File
+from nara.extra.prompt.type import Text, Image, Function, Role, File
 
 # Dynamically determine the number of CPU cores
 def getMaxWorkers() -> int:
@@ -34,6 +28,25 @@ def getMessage(role: Role, content: str, imageUrl: Optional[str] = None) -> Dict
     return message
 
 class Prompt:
+    """
+    Base class for prompt templates.
+
+    Args:
+        role (Role, optional): The role of the message. Defaults to Role.system.
+        template (List[Union[Text, Image, Callable, Function]], optional): The template for the message. Defaults to [].
+        separator (str, optional): The separator between the messages. Defaults to "\n".
+        maxWorkers (int, optional): The maximum number of workers to use. Defaults to 4.
+        cheatCode (Optional[str], optional): The cheat code to use. Defaults to None.
+
+    Raises:
+        ValueError: If maxWorkers is less than 1.
+
+    Examples:
+        >>> prompt = Prompt()
+        >>> prompt.template = ["Hello, name!"]
+        >>> prompt.fastprompt
+        "Hello, name!"
+    """
     def __init__(
         self,
         role: Role = Role.system,
