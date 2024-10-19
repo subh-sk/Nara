@@ -69,7 +69,12 @@ setup(
     packages=[
         'nara',
         'nara.nara',
+        'nara.nara.classification',
+        'nara.nara.genration',
+        'nara.nara.llm',
         'nara.nara.tele_cloude_storage',
+        'nara.nara.tele_cloude_storage.static',
+        'nara.nara.tele_cloude_storage.templates',
         'nara.extra',
         'nara.extra.async_task',
         'nara.extra.date_time',
