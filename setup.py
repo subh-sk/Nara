@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '1.0.69'
+VERSION = '0.4'
 
 
 with open("README.md", "r", encoding="utf-8") as fh:
@@ -65,7 +65,6 @@ setup(
         'faker',
         
     ],
-    # packages=find_packages(),
     packages=[
     'nara',
     'nara.extra',

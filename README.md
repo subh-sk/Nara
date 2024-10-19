@@ -1,5 +1,5 @@
 <h1 align="center">
-<img src="https://raw.githubusercontent.com/subh-sk/nara/main/Logo/nara.png" width="300">
+<img src="https://raw.githubusercontent.com/subh-sk/nara/main/logo/nara.png" width="300">
 </h1><br>
 
 <div align="center">
