@@ -1,4 +1,3 @@
-from groq import Groq
 import re
 import inspect
 import os
@@ -31,6 +30,7 @@ def Filter(txt:str) -> str|None:
         return None
  
 def GroqGen(Prompt:str):
+    from groq import Groq
     API = os.getenv("GROQ_API")
 
     if not API:
