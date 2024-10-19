@@ -51,9 +51,9 @@ pip install nara
 * **Large Language Model (LLM) Interaction:**
     * **`nara.llm`:** This module provides a unified interface for interacting with various LLMs, including Groq, OpenAI, Cohere, Sambanova, Together, and Ollama.  You can easily switch between different models and customize parameters like temperature and max tokens. Supports both synchronous and streaming responses.
         ```python
-        from nara import groq
+        from nara.llm._groq import Groq, LLAMA_32_90B_TEXT_PREVIEW
 
-        llm = groq.Groq(groq.LLAMA_32_90B_TEXT_PREVIEW)  # Initialize the LLM
+        llm = Groq(LLAMA_32_90B_TEXT_PREVIEW)  # Initialize the LLM
         response = llm.run("Translate 'Hello, World!' to Spanish.")
         print(response) # Output: Hola, Mundo!
         ```
