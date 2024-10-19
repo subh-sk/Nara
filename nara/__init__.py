@@ -37,3 +37,4 @@ def CreateTemplate(prompt: str) -> None:
     """
     from nara.nara.genration.gen_template import CreateTemplate as ct
     ct(prompt)
+

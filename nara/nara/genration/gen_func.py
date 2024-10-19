@@ -2,13 +2,9 @@ import re
 import inspect
 import os
 from dotenv import load_dotenv
+from time import time as get_time
 from nara.nara.genration.initial import init
 
-
-current_dir = os.path.dirname(__file__)
-file_path = os.path.join(current_dir, '.env')
-
-load_dotenv(dotenv_path=file_path)
 
 System = [
     {"role": "system", "content": "write code in ```python\n<code>\n``` format"},
@@ -30,6 +26,10 @@ def Filter(txt:str) -> str|None:
         return None
  
 def GroqGen(Prompt:str):
+    current_dir = os.path.dirname(__file__)
+    file_path = os.path.join(current_dir, '.env')
+
+    load_dotenv(dotenv_path=file_path)
     from groq import Groq
     API = os.getenv("GROQ_API")
 
