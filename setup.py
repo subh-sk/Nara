@@ -80,7 +80,7 @@ setup(
     'nara.extra.tools',
     'nara.llm',
     'nara.nara',
-    'nara.nara.classification',     
+    'nara.nara.classification',
     'nara.nara.genration'
 ],
 
