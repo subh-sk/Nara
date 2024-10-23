@@ -67,10 +67,10 @@ setup(
     ],
     packages=[
     'nara',
-    'nara.nara.llm',
     'nara.nara',
+    'nara.nara.llm',
     'nara.nara.classification',
-    'nara.nara.genration'
+    'nara.nara.genration',
     'nara.extra',
     'nara.extra.async_task',        
     'nara.extra.date_time',
