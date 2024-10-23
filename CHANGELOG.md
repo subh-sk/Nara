@@ -1,5 +1,5 @@
 
-### 0.4 - 23-10-2024
+### 0.5 - 23-10-2024
 > ## Remasters of existing modules and new modules
 > ### Added new modules
 > - tele_db :  A lightweight database management system for Telegram.
