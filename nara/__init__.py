@@ -9,7 +9,7 @@ import sys
 
 from nara.nara.genration.gen_func import CreateFunc
 from nara.nara.genration.initial import init
-
+from nara.nara.classification.text_classification import TextClassifier
 def CreateTemplate(prompt: str) -> None:
     """
     Generates a Python template based on the provided prompt using the GROQ model.
