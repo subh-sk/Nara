@@ -22,7 +22,7 @@ class CurrentDateTime:
         Retrieve current date information for a specified country code.
     """
     @staticmethod
-    def country_codes() -> dict:
+    def countryCodes() -> dict:
         """
         Retrieve a dictionary of all country codes and their corresponding country names.
 
@@ -41,7 +41,7 @@ class CurrentDateTime:
         return countries_dict
 
     @staticmethod
-    def date_time(country_code: str, encode: bool = False) -> dict:
+    def dateTime(country_code: str, encode: bool = False) -> dict:
         """
         Retrieve current time information for a specified country code.
 
