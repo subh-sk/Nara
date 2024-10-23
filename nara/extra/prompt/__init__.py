@@ -1,1 +1,0 @@
-from nara.extra.prompt.base import Prompt, Role, Text, Image, Function, File, getMessage, getMaxWorkers
