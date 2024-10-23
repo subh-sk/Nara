@@ -55,6 +55,7 @@ setup(
     'nara.llm',
     'nara.nara.classification',
     'nara.nara.genration',
+    'nara.nara.tele_cloude_storage',
     'nara.extra',
     'nara.extra.async_task',
     'nara.extra.date_time',
