@@ -1,6 +1,7 @@
 from nara.llm.check_and_install import check_and_install
 check_and_install('sentence_transformers')
 check_and_install('sklearn')
+check_and_install('pandas')
 
 from sentence_transformers import SentenceTransformer
 import pandas as pd

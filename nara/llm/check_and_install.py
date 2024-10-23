@@ -7,7 +7,6 @@ def check_and_install(package):
     try:
         # Check if the package is already installed
         importlib.import_module(package)
-        print(f"{package} is already installed.")
     except ImportError:
         # If not installed, install the package
         print(f"{package} not found. Installing...")

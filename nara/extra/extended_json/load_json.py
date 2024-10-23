@@ -2,7 +2,7 @@ import os
 import json
 import random
 
-def loadJson(FileName: str = "Json.json", PickRandom: int | None = None) -> dict | list:
+def load_json(FileName: str = "Json.json", PickRandom: int | None = None) -> dict | list:
     """
     Loads JSON data from a file and optionally selects random items from the data.
 

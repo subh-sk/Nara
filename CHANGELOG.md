@@ -7,15 +7,6 @@
 > - textclassification :  A simple and efficient text classification module for NLP.
 > - prompt : Prompt Engineering: Provides tools for constructing and managing prompts for LLMs, including support for different roles (system, user, assistant), text, images, and function calls.
 
-> - ### Remasters of existing modules names
-> - cahche_manager  ->  chahe 
-> - loadJson -> load_json
-> - timeit  ->  timeIt
-> - display_file_structure  ->  displayFileStructure
-> - clear_pycache_directories  ->  clearPycacheDirectories
-> - mailotp -> mail_otp
-> - onlymail -> only_mail
-> - mailurl -> mail_url
 
 ### 0.3 - 09-7-2024
 >  ## Added new modules  

@@ -4,7 +4,7 @@ from rich.console import Console
 
 console = Console()
 
-def jsonList(FileName="JsonList.json", **kwargs) -> None:
+def json_list(FileName="JsonList.json", **kwargs) -> None:
     """
     Updates a JSON file with new key-value pairs provided as keyword arguments. If the file does not exist, it creates a new empty JSON file. If the file is empty or contains invalid data, appropriate warnings are displayed.
 
@@ -56,7 +56,7 @@ def jsonList(FileName="JsonList.json", **kwargs) -> None:
         old_data.append(tosave)
         json.dump(old_data, f, indent=4)
 
-def jsonDict(Key, Value, FileName="JsonDict.json") -> None:
+def json_dict(Key, Value, FileName="JsonDict.json") -> None:
     """
     Updates a JSON file with a new key-value pair. If the file does not exist, it creates a new empty JSON file. If the file is empty or contains invalid data, appropriate warnings are displayed.
 

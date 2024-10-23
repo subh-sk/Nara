@@ -2,7 +2,7 @@ import os
 import shutil
 
 
-def clearPycacheDirectories(directory: str, display_status=False) -> None:
+def clear_pycache_directories(directory: str, display_status=False) -> None:
     """
     Recursively removes all '__pycache__' directories found within the specified directory.
 

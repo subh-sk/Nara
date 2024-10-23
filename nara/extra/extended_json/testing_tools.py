@@ -8,7 +8,7 @@ from rich.console import Console
 
 console = Console()
 
-def saveTestResults(OutputFile: str, **outerkwargs: Dict[str, Callable]) -> Callable:
+def save_test_results(OutputFile: str, **outerkwargs: Dict[str, Callable]) -> Callable:
     """
     Decorator function to save the results of a test function to a JSON file with additional data computed by specified functions.
 
@@ -74,7 +74,7 @@ def saveTestResults(OutputFile: str, **outerkwargs: Dict[str, Callable]) -> Call
         return wrapper
     return decorator
 
-def LoadTestResults(inputFile: str) -> List[Dict[str, Union[str, Any, float]]]:
+def Load_test_results(inputFile: str) -> List[Dict[str, Union[str, Any, float]]]:
     """
     Load test results from a JSON file.
 
@@ -109,13 +109,13 @@ def LoadTestResults(inputFile: str) -> List[Dict[str, Union[str, Any, float]]]:
 
 if __name__ == "__main__":
 
-    @saveTestResults("test_results.json", mean=lambda result: sum(result) / len(result), max_val=max)
+    @save_test_results("test_results.json", mean=lambda result: sum(result) / len(result), max_val=max)
     def test_function(x: int, y: int) -> int:
         return x + y
 
     test_function(1, 2)
 
-    LoadedResults = LoadTestResults("test_results.json")
+    LoadedResults = Load_test_results("test_results.json")
     for result in LoadedResults:
         rprint("[bold green]Test Result:[/bold green] {}".format(result))
 
