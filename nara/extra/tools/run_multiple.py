@@ -18,7 +18,7 @@ def run_multiple_times(count: int=1):
 
     Example:
     .. code-block:: python
-        @runMultipleTimes(5)
+        @run_multiple_times(5)
         async def task_runner():
             await some_async_function()
         # This will run `task_runner` 5 times concurrently when called.
