@@ -476,11 +476,11 @@ class TeleCloudChannel:
     
     
 
-class user_db:
+class UserDb:
     """
-    Initializes the user_db instance for the specified table ID.
+    Initializes the UserDb instance for the specified table ID.
 
-    This method creates an instance of the user_db class and associates it with the provided table ID. It also
+    This method creates an instance of the UserDb class and associates it with the provided table ID. It also
     checks for the existence of the corresponding table in the Telegram channel. If the table is not found,
     the method prompts the user to create it. If the user agrees, the table is created, and the message ID
     representing the table is set.
@@ -492,9 +492,9 @@ class user_db:
 
     Examples
     --------
-    Creating an instance of the user_db class for table ID '150':
+    Creating an instance of the UserDb class for table ID '150':
 
-    >>> table = user_db("150")
+    >>> table = UserDb("150")
     """
     
     def __init__(self,table_id:str=None,api_id:str=None,api_hash:str=None,channel_id:int=None,phone_number:int=None,session_name:str=None):
@@ -697,7 +697,7 @@ class user_db:
 
     Examples
     --------
-    >>> db = user_db("150")
+    >>> db = UserDb("150")
     >>> record = {"name": "example", "value": 123}
     >>> db.append(record)
     True
@@ -909,7 +909,7 @@ def table_list()->list:
     #     return loop.run_until_complete(tele.table_list())
     # except Exception as e:
         
-    #     print("Database locked because you are using satabase somewhere. close user_db class and try again")
+    #     print("Database locked because you are using satabase somewhere. close UserDb class and try again")
 
 
 
@@ -917,24 +917,6 @@ if __name__ == "__main__":
     st = time()
     tele = TeleCloudChannel()
     loop = asyncio.get_event_loop()
-    # loop.run_until_complete(tele.edit_message(message_id=797,new_message_text='{"dfg":"dfgdf"}'))
-    # loop.run_until_complete(tele.send_message("sdfhdf hii subh"))
-    # a = loop.run_until_complete(tele.get_messages(limit=1))
-    # print(a[0].id)
-    # loop.run_until_complete(tele.delete_all_messages())
-    print(loop.run_until_complete(tele.table_list()))
-    # print(loop.run_until_complete(tele.get_caption_and_save_file(message_id=608,save_file=True)))
-    # print(loop.run_until_complete(tele.upload_files(files_with_extensions={"https://cdn.discordapp.com/attachments/1231664483210891426/1247132867289681940/1.jpg?ex=665eea7e&is=665d98fe&hm=c9f4d70f45d824ff2c0869b34f0a9a1ae4090e14eace0f0e67a2bd81ee134d53&":'jpg',"https://images.unsplash.com/photo-1575936123452-b67c3203c357?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D":'png'},caption="online")))
-    # loop.run_until_complete(tele.upload_file(file="https://images.unsplash.com/photo-1575936123452-b67c3203c357?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",caption="online",file_extension='png'))
-    # loop.run_until_complete(tele.create_poll("table_id:127",options=["None","Hii"]))
-    # a = loop.run_until_complete(tele.get_replies_to_message(message_id=429))
-    # a = loop.run_until_complete(tele.search_replies_to_original_message("table_id:127"))
-    # a = loop.run_until_complete(tele.get_all_replies(message_id=429))
-    # print(a)
-
-    # while 1:
-    #     x = input(">>> ")
-    #     eval(x)
 
     print(f"Time taken: {time() - st} seconds")
     # pass
