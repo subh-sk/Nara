@@ -68,11 +68,11 @@ setup(
     packages=[
     'nara',
     'nara.nara',
-    'nara.nara.llm',
+    'nara.llm',
     'nara.nara.classification',
     'nara.nara.genration',
     'nara.extra',
-    'nara.extra.async_task',        
+    'nara.extra.async_task',
     'nara.extra.date_time',
     'nara.extra.extended_json',     
     'nara.extra.extended_sql',      
