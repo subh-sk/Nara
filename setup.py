@@ -5,6 +5,8 @@ VERSION = '0.4'
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
+    
+get_requirements = lambda: open('requirements.txt').read().splitlines()
 
 classifiers = [
     'Development Status :: 5 - Production/Stable',
@@ -36,7 +38,7 @@ classifiers = [
 setup(
     name='nara',
     version=VERSION,
-    description="nara provides AI-driven real-time information retrieval, chatbot interactions, temporary email creation, random data generation, caching, JSON manipulation, async task handling, and structured threading.",
+    description="nara provides AI-driven real-time information retrieval,all in one sytanx of diffrent models, chatbot interactions, temporary email creation, random data generation, caching, JSON manipulation, async task handling, and structured threading.",
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/subh-sk/Nara',
@@ -46,25 +48,7 @@ setup(
     python_requires='>=3.10',
     license='MIT',
     classifiers=classifiers,
-    install_requires=[
-        'rich',
-        'mailtm',
-        'pytz',
-        'groq',
-        'requests',
-        'python-dotenv',
-        'datetime',
-        'aiohttp',
-        'beautifulsoup4',
-        'wheel',
-        'setuptools',
-        'Pillow',
-        'telethon',
-        'python-dotenv',
-        'humanfriendly',
-        'faker',
-        
-    ],
+    install_requires=get_requirements(),
     packages=[
     'nara',
     'nara.nara',
