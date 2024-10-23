@@ -67,6 +67,10 @@ setup(
     ],
     packages=[
     'nara',
+    'nara.nara.llm',
+    'nara.nara',
+    'nara.nara.classification',
+    'nara.nara.genration'
     'nara.extra',
     'nara.extra.async_task',        
     'nara.extra.date_time',
@@ -78,10 +82,6 @@ setup(
     'nara.extra.prompt',
     'nara.extra.temp_mail',
     'nara.extra.tools',
-    'nara.llm',
-    'nara.nara',
-    'nara.nara.classification',
-    'nara.nara.genration'
 ],
 
     keywords = [
