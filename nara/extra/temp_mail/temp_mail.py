@@ -36,7 +36,7 @@ def dynamic_waiting(duration=1,message="waiting",done_text = "Done",check=True,s
     if check:print_with_overwrite(done_text)
 
 
-def mailUrl(Printable=False,Timeout=30) ->str: # type: ignore
+def mail_url(Printable=False,Timeout=30) ->str: # type: ignore
     '''
     Generates a new email address and fetches URLs from incoming emails.
 
@@ -106,7 +106,7 @@ def mailUrl(Printable=False,Timeout=30) ->str: # type: ignore
     except Exception as e:print(f"[#fa6c61]{e}[/#fa6c61]"); yield []
 
 @retry(retries=5, delay=1)
-def onlyMail(Printable:bool=False) ->str:
+def only_mail(Printable:bool=False) ->str:
     '''
     Generates a new email address and optionally prints it.
 
@@ -134,7 +134,7 @@ def onlyMail(Printable:bool=False) ->str:
     except: raise Exception("Failed to generate email address.")
 
 
-def mailOtp(OtpLength=6,Printable=False,Timeout=30)->int: # type: ignore
+def mail_otp(OtpLength=6,Printable=False,Timeout=30)->int: # type: ignore
     '''
     Generates a new email address and fetches OTPs from incoming email.
 
@@ -201,7 +201,7 @@ def mailOtp(OtpLength=6,Printable=False,Timeout=30)->int: # type: ignore
 
 if __name__ == "__main__":
     # onlyMail(Printable=True)
-    mail_OBJ = mailUrl(Timeout=20,Printable=True)
+    mail_OBJ = mail_url(Timeout=20,Printable=True)
     print(next(mail_OBJ))
     input("wait = ")
     url = next(mail_OBJ)

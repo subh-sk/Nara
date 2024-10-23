@@ -36,7 +36,7 @@ def dynamicWaiting(duration=1,message="waiting",done_text = "Done",check=True,st
 
     # Print "done" when the waiting period is over
     if check:printWithOverwrite(done_text)
-class tempMailIo:
+class tempmailio:
     def __init__(self,email_name:str=None,domain:str=None,timeout:int=30,Printable=False) -> None:
         self.email_name = email_name
         self.domain = domain
@@ -266,7 +266,7 @@ class tempMailIo:
 
 
 if __name__ == "__main__":
-    t = tempMailIo(Printable=True)
+    t = tempmailio(Printable=True)
     a = t.mailIoUrl()
     print(next(a))
     print(next(a))

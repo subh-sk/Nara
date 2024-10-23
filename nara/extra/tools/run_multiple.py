@@ -2,7 +2,7 @@ import asyncio
 from functools import wraps
 
 
-def runMultipleTimes(count: int=1):
+def run_multiple_times(count: int=1):
     """
     A decorator to run an asynchronous function multiple times concurrently.
 

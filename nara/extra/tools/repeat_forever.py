@@ -5,7 +5,7 @@ from typing import Optional
 from humanfriendly import parse_timespan, InvalidTimespan
 
 
-def repeatForever(sleep_interval: Optional[float] = None, end_after: Optional[str] = None):
+def repeat_forever(sleep_interval: Optional[float] = None, end_after: Optional[str] = None):
     """
     A decorator to repeatedly execute a function or coroutine function forever with an optional sleep interval between iterations,
     and an optional end time after which the repetition will stop.
