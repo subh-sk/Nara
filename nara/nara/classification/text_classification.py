@@ -1,22 +1,14 @@
+from nara.llm.check_and_install import check_and_install
+check_and_install('sentence_transformers')
+check_and_install('sklearn')
+
 from sentence_transformers import SentenceTransformer
 import pandas as pd
 import numpy as np
 import pickle
 import os
 
-import importlib
-import subprocess
-import sys
-def check_and_install(package):
-    try:
-        # Check if the package is already installed
-        importlib.import_module(package)
-        print(f"{package} is already installed.")
-    except ImportError:
-        # If not installed, install the package
-        print(f"{package} not found. Installing...")
-        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-        print(f"{package} has been installed.")
+
         
 def cosine_similarity(A: np.ndarray, B: np.ndarray) -> float:
     """
@@ -47,8 +39,7 @@ class TextClassifier:
         self.model_name = model_name
         self.model = SentenceTransformer(model_name)
         self.label_prototypes: dict[str, np.ndarray] = {}
-        check_and_install('sentence_transformers')
-        check_and_install('sklearn')
+
         
 
     def loadData(self, file_path: str, text_column: str = 'Examples', label_column: str = 'Labels') -> tuple[list[str], list[str]]:
